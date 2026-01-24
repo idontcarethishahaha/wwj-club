@@ -23,7 +23,7 @@ public class JwtUtil {
     /** JWT主题 */
     private static final String SUBJECT = "用户登录认证";
     /** JWT签发人 */
-    private static final String ISSUER = "WuWenjin";
+    private static final String ISSUER = "WuWenJin";
     /** JWT过期时间（默认 2 小时） */
     private static final Long EXPIRES_TIME = 1000 * 60 * 60 * 2L;
     /** JWT即将过期的时间阈值（10 分钟） */

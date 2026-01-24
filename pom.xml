@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mc-common</module>
-        <module>mc-manage</module>
+        <module>mc-manager</module>
         <module>mc-monitor</module>
         <module>mc-web</module>
     </modules>

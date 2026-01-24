@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.rms.dao.RoomMapper">
+
+    <insert id="insert">
+        insert into rms_room(title, address, info, capacity)
+        values (#{title}, #{address}, #{info}, #{capacity})
+    </insert>
+    <!--使用动态SQL标签只更新非null字段
+    version = version + 1 更新乐观锁版本号
+    version = #{version} 检查乐观锁版本号
+    and deleted = 0 只更新未被删除记录
+    -->
+    <update id="update">
+        update rms_room
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="capacity != null">capacity = #{capacity},</if>
+            <if test="updated != null">updated = #{updated},</if>
+            version = version = 1
+        </set>
+        where id = #{id} and version = #{version} and deleted = 0
+    </update>
+    <!--执行逻辑删除，将记录的删除状态改为1（已删除），更新时间为数据库系统时间-->
+    <delete id="delete">
+        update rms_room set deleted = 1,updated = CURRENT_TIMESTAMP
+        where id = #{param1}
+    </delete>
+    <!--使用动态SQL<foreach>标签来形成一个 id IN (1,2,3)-->
+    <delete id="deleteBatch">
+        update rms_room set deleted = 1,updated = CURRENT_TIMESTAMP
+        <where>
+            id IN
+               <foreach collection="list" item="room" open="(" close=")" separator=",">#{room}</foreach>
+        </where>
+    </delete>
+    <!--只查询未删除（deleted = 0）的记录-->
+    <select id="selectById" resultType="org.mdxq.wwjclub.entity.Room">
+        select * from rms_room where id = #{param1} and deleted = 0
+    </select>
+    <!--like模糊匹配
+    title like %教室%-->
+    <select id="list" resultType="org.mdxq.wwjclub.entity.Room">
+        select * from rms_room
+        <where>
+            <if test="title != null and title != ''">
+                title like '%{param1}%' and
+            </if>
+                 deleted = 0
+        </where>
+    </select>
+</mapper>

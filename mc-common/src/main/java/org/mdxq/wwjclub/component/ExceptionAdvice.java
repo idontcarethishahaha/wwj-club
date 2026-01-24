@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice("org.mdxq.wwjclub")
 @Slf4j
 public class ExceptionAdvice {
+    // AOP抛出异常通知
     @ExceptionHandler(ServerErrorException.class)
     public Object serverErrorException(ServerErrorException ex){
         String coderMessage = ex.getMessage();

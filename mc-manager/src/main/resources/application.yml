@@ -1,0 +1,69 @@
+server:
+  port: 23101
+
+spring:
+  application:
+    name: mc-manager
+  datasource: #MySQL数据源
+    url: jdbc:mysql://192.168.227.128:3306/wwjclub?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  boot: #spring boot admin监控的配置
+    admin:
+      client:
+        instance:
+          service-base-url: http://127.0.0.1:23101
+        username: admin
+        password: admin
+        url: http://127.0.0.1:23102
+  servlet: # 设置上传文件的大小限制
+    multipart:
+      max-file-size: -1 #单个文件的大小限制，-1表示无限制
+      max-request-size: 1GB # 所有文件加一起
+  cache: # 缓存相关配置
+    cache-names: room,school,assets,club,course,direction,student,dept,emp,menu,role
+  data:
+    redis: # redis单机节点
+      host: 192.168.227.128
+      port: 6379
+# 服务状态监控相关的设置
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*" #对外暴露所有端点
+
+# mybatis 相关配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: org.mdxq.wwjclub.entity
+  mapper-locations: classpath:/mappers/*.xml # 指定映射文件的位置
+
+# 分页相关配置
+pagehelper:
+  helper-dialect:  mysql
+  page-size-zero: true #当 pageSize = 0 时查询全部
+  reasonable: true # 当page小于0或大于最大页号默认查询第一页或最后一页
+
+# 接口文档相关配置
+springdoc:
+  api-docs:
+    enabled: true
+  group-configs:
+    - group: v1
+      paths-to-match: /api/v1/**  # 匹配接口路径前缀
+      packages-to-scan:  # 扫描控制器包路径
+        - org.mdxq.wwjclub.rms.controller
+        - org.mdxq.wwjclub.cms.controller
+        - org.mdxq.wwjclub.ums.controller
+# 设置knife4j加强
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
