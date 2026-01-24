@@ -32,40 +32,75 @@ public class RoomController {
     @Resource
     private RoomService roomService;
 
-    @Operation(summary = "新增 - 单条记录")
-    @PostMapping("save")
-    public Result save(@RequestBody @Validated RoomInsertDTO dto){
-        return new Result(roomService.save(dto));
-    }
+//    @Operation(summary = "新增 - 单条记录")
+//    @PostMapping("save")
+//    public Result save(@RequestBody @Validated RoomInsertDTO dto){
+//        return new Result(roomService.save(dto));
+//    }
+//
+//    @Operation(summary = "查询 - 单条记录")
+//    @GetMapping("selected/{id}")
+//    public Result select(@PathVariable("id") Long id){
+//        return new Result(roomService.getById(id));
+//    }
+//
+//    @Operation(summary = "查询 - 分页查询")
+//    @GetMapping("page")
+//    public Result page(@Validated RoomPageDTO dto){
+//        return new Result(roomService.page(dto));
+//    }
+//
+//
+//    @Operation(summary = "更新 - 单条记录")
+//    @PostMapping("update")
+//    public Result update(@RequestBody @Validated RoomUpdateDTO dto){
+//        return new Result(roomService.update(dto));
+//    }
+//
+//    @Operation(summary = "删除 - 单条记录")
+//    @DeleteMapping("delete/{id}")
+//    public Result delete(@PathVariable("id") Long id){
+//        return new Result(roomService.deleteById(id));
+//    }
+//
+//    @Operation(summary = "删除 - 批量操作")
+//    @DeleteMapping("deleteBatch")
+//    public Result deleteBatch(@RequestParam("ids") List<Long> ids){
+//        return new Result(roomService.deleteBatch(ids));
+//    }
+@Operation(summary = "新增 - 单条记录")
+@PostMapping("save")
+public Result save(@RequestBody @Validated RoomInsertDTO dto) {
+    return new Result(roomService.save(dto));
+}
 
     @Operation(summary = "查询 - 单条记录")
-    @GetMapping("selected/{id}")
-    public Result select(@PathVariable("id") Long id){
+    @GetMapping("select/{id}")
+    public Result select(@PathVariable("id") Long id) {
         return new Result(roomService.getById(id));
     }
 
     @Operation(summary = "查询 - 分页查询")
     @GetMapping("page")
-    public Result page(@Validated RoomPageDTO dto){
+    public Result page(@Validated RoomPageDTO dto) {
         return new Result(roomService.page(dto));
     }
 
-
     @Operation(summary = "更新 - 单条记录")
     @PostMapping("update")
-    public Result update(@RequestBody @Validated RoomUpdateDTO dto){
+    public Result update(@RequestBody @Validated RoomUpdateDTO dto) {
         return new Result(roomService.update(dto));
     }
 
     @Operation(summary = "删除 - 单条记录")
     @DeleteMapping("delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
+    public Result delete(@PathVariable("id") Long id) {
         return new Result(roomService.deleteById(id));
     }
 
     @Operation(summary = "删除 - 批量操作")
     @DeleteMapping("deleteBatch")
-    public Result deleteBatch(@RequestParam("ids") List<Long> ids){
+    public Result deleteBatch(@RequestParam("ids") List<Long> ids) {
         return new Result(roomService.deleteBatch(ids));
     }
 }
