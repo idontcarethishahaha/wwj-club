@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.rms.dao.SchoolMapper">
+
+    <insert id="insert">
+        insert into rms_school(title,college,major,clazz,address,info)
+        values (#{title},#{college},#{major},#{clazz},#{address},#{info})
+    </insert>
+
+    <update id="update">
+       update rms_school
+       <set>
+           <if test="title != null">title=#{title},</if>
+           <if test="college != null">college=#{college},</if>
+           <if test="major != null">major=#{major},</if>
+           <if test="clazz != null">clazz=#{clazz},</if>
+           <if test="address != null">address=#{address},</if>
+           <if test="info != null">info=#{info},</if>
+           version = version + 1,
+           updated = current_timestamp
+       </set>
+       where id = #{id} and deleted = 0 and version = #{version}
+    </update>
+
+    <delete id="delete">
+        update rms_school
+        set deleted = 1,updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update rms_school
+        set deleted = 1,updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+    <!--只查询未删除（deleted = 0）的记录-->
+    <select id="selectById" resultType="org.mdxq.wwjclub.entity.School">
+        select * from rms_school where id = #{param1} and deleted = 0
+    </select>
+
+<!--2种都可以  别名school-->
+<!--    <select id="list" resultType="org.mdxq.wwjclub.entity.School">-->
+    <select id="list" resultType="school">
+       select * from rms_school
+       <where>
+           deleted = 0 and
+                <if test="title != null and title != ''">
+                    title like '%${param1}%'
+                </if>
+       </where>
+    </select>
+</mapper>

@@ -22,18 +22,19 @@ import org.mdxq.wwjclub.constant.MC;
 @AllArgsConstructor
 @Schema(description = "房间插入DTO")
 public class RoomInsertDTO {
+
     /** 房间名称 */
     @Schema(description = "房间名称")
     @NotEmpty(message = "房间名称不能为空")
     // 正则校验规则
-    //@Pattern(regexp = MC.Regex.TITLE_RE, message = MC.Regex.TITLE_RE_MSG)
+    @Pattern(regexp = MC.Regex.TITLE_RE, message = MC.Regex.TITLE_RE_MSG)
     private String title;
 
     /** 房间地址 */
     @Schema(description = "所在位置")
     @NotEmpty(message = "房间位置不能为空")
     // 正则校验规则
-    //@Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
+    @Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
     private String address;
 
     /** 房间描述 */

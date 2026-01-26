@@ -11,6 +11,8 @@
     version = version + 1 更新乐观锁版本号
     version = #{version} 检查乐观锁版本号
     and deleted = 0 只更新未被删除记录
+
+    这里的updated是服务器的时间
     -->
     <update id="update">
         update rms_room
@@ -47,7 +49,7 @@
         select * from rms_room
         <where>
             <if test="title != null and title != ''">
-                title like '%{param1}%' and
+                title like '%${param1}%' and
             </if>
                  deleted = 0
         </where>

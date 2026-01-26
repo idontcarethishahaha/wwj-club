@@ -7,9 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.mdxq.wwjclub.constant.MC;
+import jakarta.validation.constraints.Pattern;
 
 /**
- * 类说明：添加房间使用的DTO
+ * 类说明：修改房间信息使用的DTO
  *
  * @author WuWenJin
  * @version 1.0
@@ -20,21 +22,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "房间更新DTO")
 public class RoomUpdateDTO {
+
     @Schema(description = "房间ID")
     @NotNull(message = "房间ID不能为空")
     private Long id;
+
     /** 房间名称 */
     @Schema(description = "房间名称")
     @NotEmpty(message = "房间名称不能为空")
     // 正则校验规则
-    //@Pattern(regexp = MC.Regex.TITLE_RE, message = MC.Regex.TITLE_RE_MSG)
+    @Pattern(regexp = MC.Regex.TITLE_RE, message = MC.Regex.TITLE_RE_MSG)
     private String title;
 
     /** 房间地址 */
     @Schema(description = "所在位置")
     @NotEmpty(message = "房间位置不能为空")
     // 正则校验规则
-    //@Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
+    @Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
     private String address;
 
     /** 房间描述 */

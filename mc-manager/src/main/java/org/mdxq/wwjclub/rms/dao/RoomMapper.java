@@ -13,7 +13,6 @@ import java.util.List;
  * @date 2026/1/24 11:20
  */
 @Mapper//或 @Repository
-
 public interface RoomMapper {
     int insert(Room room);
     int update(Room room);
