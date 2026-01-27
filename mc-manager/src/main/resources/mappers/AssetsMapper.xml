@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.rms.dao.AssetsMapper">
+    <insert id="insert">
+        insert into rms_assets (title, picture, price, price_unit, stock, stock_unit, total, info)
+        values (#{title}, #{picture}, #{price}, #{priceUnit}, #{stock}, #{stockUnit}, #{total}, #{info})
+    </insert>
+
+    <delete id="delete">
+        update rms_assets
+        set deleted = 1, updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update rms_assets
+        set deleted = 1, updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+
+    <update id="update">
+        update rms_assets
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="priceUnit != null">price_unit = #{priceUnit},</if>
+            <if test="stock != null">stock = #{stock},</if>
+            <if test="stockUnit != null">stock_unit = #{stockUnit},</if>
+            <if test="total != null">total = #{total},</if>
+            <if test="info != null">info = #{info},</if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        where id = #{id} and version = #{version} and deleted = 0
+    </update>
+
+    <select id="selectById" resultType="assets">
+        select * from rms_assets where id = #{param1} and deleted = 0
+    </select>
+
+    <select id="list" resultType="org.mdxq.wwjclub.entity.Assets">
+        select * from rms_assets
+        <where>
+            <if test="title != null and title != ''">
+                title like concat('%', #{title}, '%') and
+            </if>
+            deleted = 0
+        </where>
+    </select>
+</mapper>

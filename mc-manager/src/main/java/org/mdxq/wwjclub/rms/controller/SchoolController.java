@@ -3,7 +3,6 @@ package org.mdxq.wwjclub.rms.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.result.Result;
 import org.mdxq.wwjclub.rms.dto.SchoolInsertDTO;
 import org.mdxq.wwjclub.rms.dto.SchoolPageDTO;

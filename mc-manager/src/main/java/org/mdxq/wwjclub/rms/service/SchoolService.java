@@ -1,7 +1,6 @@
 package org.mdxq.wwjclub.rms.service;
 
 import com.github.pagehelper.PageInfo;
-import org.mdxq.wwjclub.entity.Room;
 import org.mdxq.wwjclub.entity.School;
 import org.mdxq.wwjclub.rms.dto.*;
 

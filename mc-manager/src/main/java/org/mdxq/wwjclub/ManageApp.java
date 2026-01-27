@@ -14,7 +14,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2026/1/24 10:16
  */
 @SpringBootApplication
-@MapperScan(basePackages = {"org.mdxq.wwjclub.rms.dao"})
+@MapperScan(basePackages = {
+        "org.mdxq.wwjclub.rms.dao",
+        "org.mdxq.wwjclub.ums.dao",
+        "org.mdxq.wwjclub.cms.dao"})
 @EnableScheduling // 开启人物调度
 @EnableRetry // 乐观锁失败重试
 public class ManageApp {

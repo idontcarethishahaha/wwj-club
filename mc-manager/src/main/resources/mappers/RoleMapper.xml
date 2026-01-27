@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.ums.dao.RoleMapper">
+    <insert id="insert">
+       insert into ums_role(title,info)
+       values (#{title},#{info})
+    </insert>
+
+    <update id="update">
+        update ums_role
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="updated != null">updated = #{updated},</if>
+            version = version = 1
+        </set>
+        where id = #{id} and version = #{version} and deleted = 0
+    </update>
+
+    <delete id="delete">
+        update ums_role
+        set deleted = 1,updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update ums_role
+        set deleted = 1,updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+    <!--只查询未删除（deleted = 0）的记录-->
+    <select id="selectById" resultType="role">
+        select * from ums_role where id = #{param1} and deleted = 0
+    </select>
+
+    <select id="list" resultType="role">
+        select * from ums_role
+        <where>
+            <if test="title != null and title != ''">
+                title like '%${param1}%' and
+            </if>
+            deleted = 0
+        </where>
+    </select>
+</mapper>

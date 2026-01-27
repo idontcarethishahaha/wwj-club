@@ -46,9 +46,9 @@
     <select id="list" resultType="school">
        select * from rms_school
        <where>
-           deleted = 0 and
+           deleted = 0
                 <if test="title != null and title != ''">
-                    title like '%${param1}%'
+                   and title like '%${param1}%'
                 </if>
        </where>
     </select>
