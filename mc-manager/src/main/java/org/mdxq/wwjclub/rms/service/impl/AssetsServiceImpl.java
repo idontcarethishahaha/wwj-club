@@ -10,10 +10,12 @@ import org.mdxq.wwjclub.exception.*;
 import org.mdxq.wwjclub.rms.dao.AssetsMapper;
 import org.mdxq.wwjclub.rms.dto.*;
 import org.mdxq.wwjclub.rms.service.AssetsService;
+import org.mdxq.wwjclub.util.MinioUtil;
 import org.springframework.cache.annotation.*;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -96,4 +98,37 @@ public class AssetsServiceImpl implements AssetsService {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
         return new PageInfo<>(assetsMapper.list(dto.getTitle()));
     }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    @CacheEvict(allEntries = true)
+    public String uploadPicture(MultipartFile newFile, Long id) {
+        Assets assets = assetsMapper.selectById(id);
+        if (ObjectUtil.isNull(assets)) {
+            throw new ServerErrorException("DB: 该资产不存在");
+        }
+
+        String oldName = assets.getPicture();//取出资产图片的旧文件名
+        String newFilename = MinioUtil.randomFilename(newFile);//得到一个随机的新文件名
+        assets.setPicture(newFilename);//设置资产的新图片文件名
+
+        // 更新数据库
+        if (assetsMapper.update(assets) == 0) {
+            throw new ServerErrorException("DB: 记录更新失败");
+        }
+
+        try {
+            // 删除旧文件（可选）
+            if (!MC.Assets.DEFAULT_ASSETS_PIC.equals(oldName)) {
+                MinioUtil.delete(oldName, MC.MinIO.ASSETS_DIR, MC.MinIO.BUCKET_NAME);
+            }
+            // 上传新文件到 Minio：新文件，文件名，上传路径，桶名称
+            MinioUtil.upload(newFile, newFilename, MC.MinIO.ASSETS_DIR, MC.MinIO.BUCKET_NAME);
+        } catch (Exception ex) {
+            throw new ServerErrorException("Minio操作失败: " + ex.getMessage());
+        }
+
+        return newFilename;//如果所有操作都成功，返回新的文件名
+    }
+
 }

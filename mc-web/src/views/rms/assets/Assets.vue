@@ -6,6 +6,7 @@ import { onMounted, ref, reactive } from "vue";
 import { myPage } from "@/request/index.js";
 import { selectApi, deleteApi, deleteBatchApi, pageApi } from "@/api/axios.js";
 import { ElMessage } from "element-plus";
+import {PROJECT_INFO} from "@/const/index.js";
 
 // 导航项列表
 const navItems = [
@@ -20,15 +21,19 @@ const headItems = [
 
 // 表格列信息
 const tableColumns = [
-  { label: '名称', prop: 'title' },
-  { label: '图片', prop: 'picture'},
-  { label: '单价', prop: 'price'},
-  { label: '货币单位', prop: 'priceUnit'},
-  { label: '库存', prop: 'stock' },
-  { label: '库存单位', prop: 'stockUnit'},
-  { label: '总库存', prop: 'total'},
+  { label: '名称', prop: 'title' ,width:100},
+  { label: '图片', prop: 'picture',type:'img',minio:minio},
+  { label: '单价', prop: 'price',width:80},
+  { label: '货币单位', prop: 'priceUnit',width:80},
+  { label: '库存', prop: 'stock' ,width:80},
+  { label: '库存单位', prop: 'stockUnit',width:80},
+  { label: '总库存', prop: 'total',width:80},
   { label: '描述', prop: 'info' , type: 'card'}
 ]
+//封装一个访问Minio资源发的函数
+function minio(src){
+  return  PROJECT_INFO.minioHost+'/assets/'+src;
+}
 
 // 表格数据 + 分页信息 + 资产名称
 const records = ref();
@@ -50,7 +55,7 @@ async function page(pageNum = pageInfo['pageNum'], pageSize = pageInfo['pageSize
   await myPage(config);
 }
 
-// 搜索xx名
+// 搜索资产名
 function pageByTitle(val) {
   if (val || Title.value) { //仅当输入框有值，或者Title不为空时，发送分页查询
     Title.value = val;

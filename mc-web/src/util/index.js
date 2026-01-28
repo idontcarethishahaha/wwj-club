@@ -46,7 +46,7 @@ export function dateFormat(dateStr) {
     if (isEmpty(dateStr)) return '';//先排除空串的情况
     let date = new Date(dateStr);
     let year = date.getFullYear();
-    let month = toDouble(date.getMonth());
+    let month = toDouble(date.getMonth()+1);
     let day = toDouble(date.getDate());
 
     // 不是单引号 2026年01月20日

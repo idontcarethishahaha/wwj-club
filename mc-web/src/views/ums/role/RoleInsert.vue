@@ -9,18 +9,13 @@ import {ref} from "vue";
 
 // 定义导航项
 const navItems = [
-  {label:'资源管理',icon:'List'},
-  {label:'资产列表',icon:'Coin',url:'/Assets'},
-  {label:'添加新资产',icon:'Plus'}
+  {label:'用户管理',icon:'List'},
+  {label:'角色列表',icon:'User',url:'/Role'},
+  {label:'添加新角色',icon:'Plus'}
 ]
 // 定义表单项
 const formItems = [
   {label: '名称', prop: 'title', required: true, span: 12},
-  {label: '单价', prop: 'price', required: true, span:12,type: 'number'},
-  {label: '货币单位', prop: 'priceUnit', required: true, span:12},
-  {label: '库存', prop: 'stock', required: true, span:12,type: 'number'},
-  {label: '库存单位', prop: 'stockUnit', required: true, span:12},
-  {label: '总计库存', prop: 'total', required: true, span:12,type: 'number'},
   {label: '描述', prop: 'info', required: true, span:24,type: 'textarea'}
 ]
 //表单值
@@ -32,17 +27,17 @@ const rules = {
 //添加成功的响应函数
 function insertSuccess(){
   ElMessage.success("添加成功！")
-  //延迟1000ms后自动跳转到资产列表页
-  setTimeout(()=>router.push('/Assets'),1000)
+  //延迟1000ms后自动跳转到角色列表页
+  setTimeout(()=>router.push('/Role'),1000)
 }
 
 // 定义模块名
-const args = {module:'assets'}
+const args = {module:'role'}
 </script>
 
 <template>
   <my-nav :items="navItems"/>
-  <el-card class="insert-card" header="添加新资产">
+  <el-card class="insert-card" header="添加新角色">
     <my-form type="insert"
              :params="formValues"
              :api="insertApi"

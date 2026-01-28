@@ -8,6 +8,12 @@ import SchoolInsert from "@/views/rms/school/SchoolInsert.vue";
 import SchoolUpdate from "@/views/rms/school/SchoolUpdate.vue";
 
 import Assets from "@/views/rms/assets/Assets.vue";
+import AssetsInsert from "@/views/rms/assets/AssetsInsert.vue";
+import AssetsUpdate from "@/views/rms/assets/AssetsUpdate.vue";
+
+import Role from "@/views/ums/role/Role.vue";
+import RoleInsert from "@/views/ums/role/RoleInsert.vue";
+import RoleUpdate from "@/views/ums/role/RoleUpdate.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -25,8 +31,12 @@ const router = createRouter({
         {path:'/RoomUpdate',name:'RoomUpdate',component:RoomUpdate},
 
         {path:'/Assets',name:'Assets',component:Assets},
-    //     {path:'/AssetsInsert',name:'AssetsInsert',component:AssetsInsert},
-    //     {path:'/AssetsUpdate',name:'AssetsUpdate',component:AssetsUpdate},
+        {path:'/AssetsInsert',name:'AssetsInsert',component:AssetsInsert},
+        {path:'/AssetsUpdate',name:'AssetsUpdate',component:AssetsUpdate},
+
+        {path:'/Role',name:'Role',component:Role},
+        {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
+        {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
     ]
 });
 

@@ -8,6 +8,7 @@ import org.mdxq.wwjclub.rms.dto.*;
 import org.mdxq.wwjclub.rms.service.AssetsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ import java.util.List;
 public class AssetsController {
     @Resource
     private AssetsService assetsService;
+
+    @PostMapping("uploadPicture/{id}")
+    @Operation(summary = "上传资产图片")
+    public Result uploadPicture(@PathVariable("id") Long id, @RequestParam("pictureFile") MultipartFile newFile) {
+        return new Result(assetsService.uploadPicture(newFile, id));
+    }
 
     @Operation(summary = "新增 - 单条记录")
     @PostMapping("insert")

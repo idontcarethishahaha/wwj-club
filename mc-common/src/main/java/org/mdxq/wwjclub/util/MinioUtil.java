@@ -1,7 +1,7 @@
 package org.mdxq.wwjclub.util;
 
 /**
- * 类说明：
+ * 类说明：minio工具类
  *
  * @author WuWenJin
  * @version 1.0
@@ -24,9 +24,9 @@ public class MinioUtil {
     /** Minio端点 */
     private final static String END_POINT = "http://192.168.227.128:9001";
     /** Minio访问KEY */
-    private final static String ACCESS_KEY = "ewbUbkXx1uRCYyC5op3y";
+    private final static String ACCESS_KEY = "admin";
     /** Minio秘钥 */
-    private final static String SECRET_KEY = "dTDxeWVRgJMeZG2eTNsuAwkP8bflXjYaxS8eniqO";
+    private final static String SECRET_KEY = "admin1234";
 
     static {
         try {
