@@ -10,28 +10,32 @@ import lombok.NoArgsConstructor;
 import org.mdxq.wwjclub.constant.MC;
 
 /**
- * 类说明：更新角色DTO
+ * 类说明：部门更新DTO
  *
  * @author WuWenJin
  * @version 1.0
- * @date 2026/1/26 15:12
+ * @date 2026/1/30 10:13
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "角色更新DTO")
-public class RoleUpdateDTO {
+public class DeptUpdateDTO {
 
-    @Schema(description = "角色ID")
-    @NotNull(message = "角色ID不能为空")
+    @Schema(description = "部门ID")
+    @NotNull(message = "部门ID不能为空")
     private Long id;
 
-    @Schema(description = "角色名称")
-    @NotEmpty(message = "角色名称不能为空")
+    @Schema(description = "部门名称")
+    @NotEmpty(message = "部门名称不能为空")
     @Pattern(regexp = MC.Regex.TITLE_RE, message = MC.Regex.TITLE_RE_MSG)
     private String title;
 
-    @Schema(description = "角色描述")
+    @Schema(description = "部门描述")
     @Pattern(regexp = MC.Regex.INFO_RE, message = MC.Regex.INFO_RE_MSG)
     private String info;
+
+    /** 房间ID，房间表外键 */
+    @NotNull(message = "房间ID不能为空")
+    @Schema(description = "房间ID")
+    private Long fkRoomId;
 }

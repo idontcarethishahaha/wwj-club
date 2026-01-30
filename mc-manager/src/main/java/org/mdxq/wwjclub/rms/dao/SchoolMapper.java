@@ -1,6 +1,7 @@
 package org.mdxq.wwjclub.rms.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.School;
 import org.mdxq.wwjclub.mapper.BaseMapper;
 
@@ -33,7 +34,7 @@ public interface SchoolMapper extends BaseMapper<School> {
     int deleteBatch(List<Long> ids);
 
     @Override
-    List<School> list(String title);
+    List<School> list(PageDTO pageDTO);
 
 }
 

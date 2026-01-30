@@ -96,7 +96,7 @@ public class AssetsServiceImpl implements AssetsService {
     @Override
     public PageInfo<Assets> page(AssetsPageDTO dto) {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-        return new PageInfo<>(assetsMapper.list(dto.getTitle()));
+        return new PageInfo<>(assetsMapper.list(dto));
     }
 
     @Override

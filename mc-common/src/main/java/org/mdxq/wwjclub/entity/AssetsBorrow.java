@@ -30,4 +30,9 @@ public class AssetsBorrow implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    // 映射申请的资产
+    private Assets assets;
+    //映射申请人
+    private Emp emp;
 }

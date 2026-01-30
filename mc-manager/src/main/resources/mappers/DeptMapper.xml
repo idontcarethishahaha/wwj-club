@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.ums.dao.DeptMapper">
+    <insert id="insert">
+       insert into ums_dept (title, info, fk_room_id)
+       values (#{title},#{info},#{fkRoomId})
+    </insert>
+
+    <delete id="delete">
+        update ums_dept
+        set deleted = 1, updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update ums_dept
+        set deleted = 1 and updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+
+    <update id="update">
+
+    </update>
+
+    <!--只查询未删除（deleted = 0）的记录-->
+    <select id="selectById" resultType="dept">
+        select * from ums_dept
+        where id = #{id} and deleted = 0
+    </select>
+
+    <select id="list" resultType="dept">
+        select * from rms_assets
+        <where>
+            <if test="title != null and title != ''">
+                title like concat('%', #{title}, '%') and
+            </if>
+            deleted = 0
+        </where>
+    </select>
+</mapper>

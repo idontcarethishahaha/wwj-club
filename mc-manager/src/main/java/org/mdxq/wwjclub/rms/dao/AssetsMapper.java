@@ -1,6 +1,7 @@
 package org.mdxq.wwjclub.rms.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Assets;
 import org.mdxq.wwjclub.mapper.BaseMapper;
 
@@ -32,5 +33,5 @@ public interface AssetsMapper extends BaseMapper<Assets> {
     Assets selectById(Long id);
 
     @Override
-    List<Assets> list(String title);
+    List<Assets> list(PageDTO pageDTO);
 }

@@ -30,7 +30,7 @@ const tableColumns = [
   { label: '总库存', prop: 'total',width:80},
   { label: '描述', prop: 'info' , type: 'card'}
 ]
-//封装一个访问Minio资源发的函数
+//封装一个访问Minio资源分发的函数
 function minio(src){
   return  PROJECT_INFO.minioHost+'/assets/'+src;
 }

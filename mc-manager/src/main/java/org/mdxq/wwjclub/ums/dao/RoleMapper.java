@@ -1,6 +1,7 @@
 package org.mdxq.wwjclub.ums.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Role;
 import org.mdxq.wwjclub.mapper.BaseMapper;
 
@@ -32,5 +33,5 @@ public interface RoleMapper extends BaseMapper<Role>{
     Role selectById(Long id);
 
     @Override
-    List<Role> list(String title);
+    List<Role> list(PageDTO pageDTO);
 }

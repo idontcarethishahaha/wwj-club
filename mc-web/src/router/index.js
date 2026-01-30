@@ -15,6 +15,10 @@ import Role from "@/views/ums/role/Role.vue";
 import RoleInsert from "@/views/ums/role/RoleInsert.vue";
 import RoleUpdate from "@/views/ums/role/RoleUpdate.vue";
 
+import AssetsBorrow from "@/views/rms/assetsBorrow/AssetsBorrow.vue";
+import AssetsBorrowInsert from "@/views/rms/assetsBorrow/AssetsBorrowInsert.vue";
+import AssetsBorrowUpdate from "@/views/rms/assetsBorrow/AssetsBorrowUpdate.vue";
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -34,9 +38,15 @@ const router = createRouter({
         {path:'/AssetsInsert',name:'AssetsInsert',component:AssetsInsert},
         {path:'/AssetsUpdate',name:'AssetsUpdate',component:AssetsUpdate},
 
+        {path:'/AssetsBorrow',name:'AssetsBorrow',component:AssetsBorrow},
+        {path:'/AssetsBorrowInsert',name:'AssetsBorrowInsert',component:AssetsBorrowInsert},
+        {path:'/AssetsBorrowUpdate',name:'AssetsBorrowUpdate',component:AssetsBorrowUpdate},
+
         {path:'/Role',name:'Role',component:Role},
         {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
         {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
+
+
     ]
 });
 

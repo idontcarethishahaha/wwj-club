@@ -1,5 +1,6 @@
 package org.mdxq.wwjclub.mapper;
 
+import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Room;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface BaseMapper<T> {
     int delete(Long id);
     int deleteBatch(List<Long> ids);
     T selectById(Long id);
-    List<T> list(String title);
+    List<T> list(PageDTO pageDTO);
 }
 

@@ -100,6 +100,6 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public PageInfo<School> page(SchoolPageDTO dto) {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-        return new PageInfo<>(schoolMapper.list(dto.getTitle()));
+        return new PageInfo<>(schoolMapper.list(dto));
     }
 }

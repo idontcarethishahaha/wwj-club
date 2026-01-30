@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.rms.dao.AssetsBorrowMapper">
+    <insert id="insert">
+        insert into rms_assets_borrow (fk_assets_id, fk_emp_id, count, borrow_time, expected_return_time,info)
+        values (#{fkAssetsId},#{fkEmpId},#{count},#{borrowTime},#{expectedReturnTime},#{info})
+    </insert>
+
+    <delete id="delete">
+        update rms_assets_borrow
+        set deleted = 1 ,updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+       update rms_assets_borrow
+       set deleted = 1 ,updated = current_timestamp
+       <where>
+           id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
+       </where>
+    </delete>
+
+    <update id="update">
+        update rms_assets_borrow
+        <set>
+            <if test="fkAssetsId != null">fk_assets_id = #{fkAssetsId},</if>
+            <if test="fkEmpId != null">fk_emp_id = #{fkEmpId},</if>
+            <if test="count != null">count = #{count},</if>
+            <if test="borrowTime != null">borrow_time = #{borrowTime},</if>
+            <if test="expectedReturnTime != null">expected_return_time = #{expectedReturnTime},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="returnTime != null">return_time = #{returnTime}, </if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        where id = #{id} and deleted = 0 and version = #{version}
+    </update>
+
+    <!-- 自己声明一个结果集映射的配置 -->
+    <resultMap id="RM_AssetsBorrow" type="assetsBorrow" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="fk_assets_id" property="fkAssetsId"></result>
+        <result column="fk_emp_id" property="fkEmpId"></result>
+        <association property="assets" column="fk_assets_id"
+                     select="org.mdxq.wwjclub.rms.dao.AssetsMapper.selectById"></association>
+        <association property="emp" column="fk_emp_id"
+                     select="org.mdxq.wwjclub.ums.dao.EmpMapper.selectById"></association>
+    </resultMap>
+
+    <!--只查询未删除（deleted = 0）的记录-->
+    <select id="selectById" resultMap="RM_AssetsBorrow">
+        select * from rms_assets_borrow
+        where id = #{param1} and deleted = 0
+    </select>
+
+    <select id="list" resultMap="RM_AssetsBorrow">
+        select * from rms_assets_borrow
+        <where>
+            <if test="fkAssetsId != null">fk_assets_id = #{fkAssetsId} and</if>
+            <if test="fkEmpId != null">fk_emp_id = #{fkEmpId} and</if>
+            deleted = 0
+        </where>
+    </select>
+
+
+</mapper>

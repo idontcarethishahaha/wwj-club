@@ -28,6 +28,16 @@ public class AssetsController {
     @Resource
     private AssetsService assetsService;
 
+    @GetMapping("list")
+    @Operation(summary = "查询 - 所有资产")
+    public Result list(){
+        AssetsPageDTO dto = new AssetsPageDTO();
+        dto.setPageNum(1);
+        dto.setPageSize(Integer.MAX_VALUE);
+        // 执行分页查询，但是设置足够大的pageSize就可以查到所有的资产
+        return new Result(assetsService.page(dto).getList());
+    }
+
     @PostMapping("uploadPicture/{id}")
     @Operation(summary = "上传资产图片")
     public Result uploadPicture(@PathVariable("id") Long id, @RequestParam("pictureFile") MultipartFile newFile) {

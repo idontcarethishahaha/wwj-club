@@ -2,12 +2,10 @@ package org.mdxq.wwjclub.ums.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.*;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.entity.Role;
-import org.mdxq.wwjclub.exception.ServerErrorException;
-import org.mdxq.wwjclub.exception.VersionException;
+import org.mdxq.wwjclub.exception.*;
 import org.mdxq.wwjclub.ums.dao.RoleMapper;
 import org.mdxq.wwjclub.ums.dto.*;
 import org.mdxq.wwjclub.ums.service.RoleService;
@@ -90,6 +88,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageInfo<Role> page(RolePageDTO dto) {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-        return new PageInfo<>(roleMapper.list(dto.getTitle()));
+        return new PageInfo<>(roleMapper.list(dto));
     }
 }
