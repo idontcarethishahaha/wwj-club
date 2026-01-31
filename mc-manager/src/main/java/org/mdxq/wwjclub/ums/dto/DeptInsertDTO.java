@@ -27,12 +27,12 @@ public class DeptInsertDTO {
     private String title;
 
     @Schema(description = "部门描述")
-    @Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
+    @Pattern(regexp = MC.Regex.INFO_RE, message = MC.Regex.INFO_RE_MSG)
     private String info;
 
     /** 房间ID，房间表外键 */
     @NotNull(message = "房间ID不能为空")
-    @Schema(description = "房间ID")
+    @Schema(description = "房间ID，房间表外键")
     private Long fkRoomId;
 
 }

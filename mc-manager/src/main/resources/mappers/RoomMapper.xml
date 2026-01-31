@@ -22,7 +22,7 @@
             <if test="info != null">info = #{info},</if>
             <if test="capacity != null">capacity = #{capacity},</if>
             <if test="updated != null">updated = #{updated},</if>
-            version = version = 1
+            version = version + 1
         </set>
         where id = #{id} and version = #{version} and deleted = 0
     </update>

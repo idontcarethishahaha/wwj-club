@@ -64,4 +64,13 @@ public class RoomController {
     public Result deleteBatch(@RequestParam("ids") List<Long> ids) {
         return new Result(roomService.deleteBatch(ids));
     }
+
+    @Operation(summary="查询 - 所有房间")
+    @GetMapping("list")
+    public Result list() {
+        RoomPageDTO dto = new RoomPageDTO();
+        dto.setPageNum(1);
+        dto.setPageSize(Integer.MAX_VALUE);
+        return new Result(roomService.page(dto).getList());
+    }
 }

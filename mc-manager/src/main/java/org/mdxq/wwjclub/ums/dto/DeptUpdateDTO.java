@@ -19,6 +19,7 @@ import org.mdxq.wwjclub.constant.MC;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "部门更新DTO")
 public class DeptUpdateDTO {
 
     @Schema(description = "部门ID")
@@ -36,6 +37,6 @@ public class DeptUpdateDTO {
 
     /** 房间ID，房间表外键 */
     @NotNull(message = "房间ID不能为空")
-    @Schema(description = "房间ID")
+    @Schema(description = "房间ID，房间表外键")
     private Long fkRoomId;
 }

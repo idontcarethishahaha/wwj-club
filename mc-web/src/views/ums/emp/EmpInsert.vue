@@ -9,9 +9,9 @@ import {ref} from "vue";
 
 // 定义导航项
 const navItems = [
-  {label:'xx管理',icon:'List'},
-  {label:'xx列表',icon:'OfficeBuilding',url:'/xx'},
-  {label:'添加新xx',icon:'Plus'}
+  { label: '用户管理', icon: 'Avatar' },
+  { label: '员工列表', icon: 'HomeFilled',url:'/Emp' },
+  {label:'添加新员工',icon:'Plus'}
 ]
 // 定义表单项
 const formItems = [
@@ -29,8 +29,8 @@ const rules = {
 //添加成功的响应函数
 function insertSuccess(){
   ElMessage.success("添加成功！")
-  //延迟1000ms后自动跳转到xx列表页
-  setTimeout(()=>router.push('/xx'),1000)
+  //延迟1000ms后自动跳转到员工列表页
+  setTimeout(()=>router.push('/Emp'),1000)
 }
 
 // 定义模块名
@@ -39,7 +39,7 @@ const args = {module:'xx'}
 
 <template>
   <my-nav :items="navItems"/>
-  <el-card class="insert-card" header="添加新xx">
+  <el-card class="insert-card" header="添加新员工">
     <my-form type="insert"
              :params="formValues"
              :api="insertApi"

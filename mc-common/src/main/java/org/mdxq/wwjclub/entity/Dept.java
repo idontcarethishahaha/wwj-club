@@ -26,4 +26,6 @@ public class Dept implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+    // 部门所在办公房间
+    private Room room;
 }

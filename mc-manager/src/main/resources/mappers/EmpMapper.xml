@@ -3,21 +3,80 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.mdxq.wwjclub.ums.dao.EmpMapper">
     <insert id="insert">
-
+        insert into ums_emp (
+            username,
+            password,
+            avatar,
+            phone,
+            wechat,
+            email,
+            gender,
+            age,
+            province,
+            address,
+            realname,
+            idcard,
+            fk_dept_id,
+            info,
+            hiredate
+        )
+        values (
+                   #{username},
+                   #{password},
+                   #{avatar},
+                   #{phone},
+                   #{wechat},
+                   #{email},
+                   #{gender},
+                   #{age},
+                   #{province},
+                   #{address},
+                   #{realname},
+                   #{idcard},
+                   #{fkDeptId},
+                   #{info},
+                   #{hiredate}
+               )
     </insert>
 
 
 
     <delete id="delete">
-
+        update ums_emp
+        set deleted = 1, updated = current_timestamp
+        where id = #{param1}
     </delete>
 
     <delete id="deleteBatch">
-
+        update ums_emp
+        set deleted = 1, updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
     </delete>
 
     <update id="update">
-
+        update ums_emp
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="realname != null">realname = #{realname},</if>
+            <if test="idcard != null">idcard = #{idcard},</if>
+            <if test="fkDeptId != null">fk_dept_id = #{fkDeptId},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="hiredate != null">hiredate = #{hiredate},</if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        where id = #{id} and version = #{version} and deleted = 0
     </update>
 
     <!--只查询未删除（deleted = 0）的记录-->

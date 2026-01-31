@@ -15,29 +15,50 @@
 
     <delete id="deleteBatch">
         update ums_dept
-        set deleted = 1 and updated = current_timestamp
+        set deleted = 1, updated = current_timestamp
         <where>
             id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
         </where>
     </delete>
 
     <update id="update">
-
+        update ums_dept
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="fkRoomId != null">fk_room_id = #{fkRoomId},</if>
+            version = version + 1
+            updated = current_timestamp
+        </set>
+        where id = #{id} and version = #{version} and deleted = 0
     </update>
 
     <!--只查询未删除（deleted = 0）的记录-->
     <select id="selectById" resultType="dept">
-        select * from ums_dept
-        where id = #{id} and deleted = 0
+        select * from ums_dept where id = #{param1} and deleted = 0
     </select>
 
-    <select id="list" resultType="dept">
-        select * from rms_assets
+    <resultMap id="RM_Dept" type="dept" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="fk_room_id" property="fkRoomId"/>
+        <association column="fk_room_id" property="room"
+                     select="org.mdxq.wwjclub.rms.dao.RoomMapper.selectById"/>
+    </resultMap>
+
+    <select id="list" resultMap="RM_Dept">
+        select * from ums_dept
         <where>
-            <if test="title != null and title != ''">
-                title like concat('%', #{title}, '%') and
-            </if>
+            <if test="title != null"> title like '%${title}%' and </if>
             deleted = 0
         </where>
     </select>
+
+    <select id="listAll" resultType="org.mdxq.wwjclub.ums.vo.DeptVO">
+        select id, title from ums_dept where deleted = 0
+    </select>
+
+    <select id="countByTitle" resultType="java.lang.Long">
+        select count(*) from ums_dept where title=#{param1} and deleted = 0
+    </select>
+
 </mapper>

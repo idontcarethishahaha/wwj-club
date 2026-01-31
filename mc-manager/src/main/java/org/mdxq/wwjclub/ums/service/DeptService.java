@@ -5,6 +5,7 @@ import org.mdxq.wwjclub.entity.Dept;
 import org.mdxq.wwjclub.ums.dto.DeptInsertDTO;
 import org.mdxq.wwjclub.ums.dto.DeptPageDTO;
 import org.mdxq.wwjclub.ums.dto.DeptUpdateDTO;
+import org.mdxq.wwjclub.ums.vo.DeptVO;
 
 import java.util.List;
 
@@ -22,5 +23,5 @@ public interface DeptService {
     boolean deleteById(Long id);
     boolean deleteBatch(List<Long> ids);
     PageInfo<Dept> page(DeptPageDTO dto);
-    List<Dept> listAll();
+    List<DeptVO> listAll();
 }
