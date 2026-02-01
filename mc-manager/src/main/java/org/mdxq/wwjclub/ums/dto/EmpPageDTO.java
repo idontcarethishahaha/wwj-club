@@ -19,5 +19,12 @@ import org.mdxq.wwjclub.dto.PageDTO;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class EmpPageDTO extends PageDTO {
+    @Schema(description = "登录名")
+    private String username;
+    @Schema(description = "真实姓名")
+    private String realname;
+    @Schema(description = "手机号")
+    private String phone;
+    @Schema(description = "部门ID")
     private Long fkDeptId;//部门ID
 }

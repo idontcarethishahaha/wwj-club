@@ -5,6 +5,8 @@ import org.mdxq.wwjclub.entity.Emp;
 import org.mdxq.wwjclub.ums.dto.EmpInsertDTO;
 import org.mdxq.wwjclub.ums.dto.EmpPageDTO;
 import org.mdxq.wwjclub.ums.dto.EmpUpdateDTO;
+import org.mdxq.wwjclub.ums.dto.UpdatePasswordDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,4 +25,8 @@ public interface EmpService {
     boolean deleteBatch(List<Long> ids);
     PageInfo<Emp> page(EmpPageDTO dto);
     List<Emp> listAll();
+
+    String uploadAvatar(MultipartFile newFile, Long id);
+
+    boolean updatePassword(UpdatePasswordDTO dto);
 }

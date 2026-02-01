@@ -9,8 +9,8 @@ import {ElMessage} from "element-plus";
 
 // 导航项列表
 const navItems = [
-  {label: '用户管理', icon: 'List'},
-  {label: '角色列表', icon: 'OfficeBuilding'},
+  {label: '用户管理', icon: 'Avatar'},
+  {label: '角色列表', icon: 'UserFilled'},
 ]
 // 数据头
 const headItems = [
@@ -18,8 +18,8 @@ const headItems = [
 ]
 // 表格列信息
 const tableColumns = [
-  {label: '名称', prop: 'title', required: true, span: 12},
-  {label: '描述', prop: 'info', required: true, span:24,type: 'textarea'}
+  {label: '名称', prop: 'title'},
+  {label: '描述', prop: 'info',type: 'card',width:420}
 ]
 //表格数据 + 分页信息 + 角色名称
 const records = ref();

@@ -1,18 +1,20 @@
 <script setup>
 import MyNav from "@/components/MyNav.vue";
 import MyForm from "@/components/MyForm.vue";
-import {insertApi,listApi} from "@/api/axios.js";
+import {updateApi,listApi} from "@/api/axios.js";
 import {DEFAULT_PASSWORD, RULE} from "@/const/index.js";
 import {ElMessage} from "element-plus";
 import router from "@/router/index.js";
 import {reactive, ref,onMounted} from "vue";
 import {getResponseData} from "@/request/index.js";
+import MyUpload from "@/components/MyUpload.vue";
+import {UPLOAD_AVATAR_URL} from "@/api/emp.js";
 
 // 定义导航项
 const navItems = [
   { label: '用户管理', icon: 'Avatar' },
   { label: '员工列表', icon: 'HomeFilled',url:'/Emp' },
-  {label:'添加新员工',icon:'Plus'}
+  {label:'修改员工信息',icon:'Edit'}
 ]
 const deptOptions = reactive([]);
 
@@ -39,15 +41,16 @@ const formItems = [
   {label: '现居住地', prop: 'address', required: true, span: 24, type: 'textarea'},
   {label: '简介', prop: 'info', required: false, span: 24, type: 'textarea'},
 ]
+const record = JSON.parse(sessionStorage.getItem('row'))
 //表单值
-const formValues = ref({password:DEFAULT_PASSWORD})
+const formValues = reactive(record)
 //表单项规则：对表单输入值进行格式校验提醒
 const rules = {
   address:RULE.ADDRESS,info:RULE.INFO,realname:RULE.REALNAME,phone:RULE.PHONE,idcard:RULE.IDCARD,email:RULE.EMAIL
 }
-//添加成功的响应函数
-function insertSuccess(){
-  ElMessage.success("添加成功！")
+//修改成功的响应函数
+function updateSuccess(){
+  ElMessage.success("修改成功！")
   //延迟1000ms后自动跳转到员工列表页
   setTimeout(()=>router.push('/Emp'),1000)
 }
@@ -57,20 +60,36 @@ const args = {module:'emp'}
 </script>
 
 <template>
-  <my-nav :items="navItems"/>
-  <el-card class="insert-card" header="添加新员工">
-    <my-form type="insert"
-             :params="formValues"
-             :api="insertApi"
-             :rules="rules"
-             :args="args"
-             :callback="insertSuccess"
-             :items="formItems"></my-form>
-  </el-card>
+  <my-nav v-bind:items="navItems" />
+  <el-row>
+    <el-col :span="18">
+      <el-card class="update-card" header="编辑员工信息">
+        <my-form
+            type="update"
+            :params="formValues"
+            :api="updateApi"
+            :rules="rules"
+            :args="args"
+            :callback="updateSuccess"
+            :items="formItems">
+        </my-form>
+      </el-card>
+    </el-col>
+    <el-col :span="6">
+      <el-card class="update-card">
+        <my-upload
+            :url="UPLOAD_AVATAR_URL + '/' + record.id"
+            :callback="updateSuccess"
+            :auto-upload="true"
+            name="avatarFile">
+        </my-upload>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <style scoped lang="scss">
-   .insert-card{
+   .update-card{
      width:60%;
      margin: 65px auto;
    }

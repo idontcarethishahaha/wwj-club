@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Role;
 import org.mdxq.wwjclub.mapper.BaseMapper;
+import org.mdxq.wwjclub.ums.vo.RoleVO;
 
 import java.util.List;
 
@@ -17,6 +18,11 @@ import java.util.List;
 
 @Mapper
 public interface RoleMapper extends BaseMapper<Role>{
+
+    List<RoleVO> listAll();
+
+    int countByTitle(String title);
+
     @Override
     int insert(Role role);
 

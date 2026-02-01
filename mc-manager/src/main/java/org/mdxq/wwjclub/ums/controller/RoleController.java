@@ -66,6 +66,12 @@ public class RoleController {
     public Result deleteBatch(@RequestParam("ids") List<Long> ids) {
         return new Result(roleService.deleteBatch(ids));
     }
+
+    @GetMapping("list")
+    @Operation(summary = "查询 - 所有角色")
+    public Result list() {
+        return new Result(roleService.listAll());
+    }
 }
 
 

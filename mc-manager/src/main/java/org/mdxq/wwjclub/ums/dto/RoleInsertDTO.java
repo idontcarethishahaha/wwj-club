@@ -18,7 +18,7 @@ import org.mdxq.wwjclub.constant.MC;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "角色添加DTO")
+@Schema(description = "角色插入DTO")
 public class RoleInsertDTO {
 
     @Schema(description = "角色名称")
@@ -27,6 +27,6 @@ public class RoleInsertDTO {
     private String title;
 
     @Schema(description = "角色描述")
-    @Pattern(regexp = MC.Regex.ADDRESS_RE, message = MC.Regex.ADDRESS_RE_MSG)
+    @Pattern(regexp = MC.Regex.INFO_RE, message = MC.Regex.INFO_RE_MSG)
     private String info;
 }

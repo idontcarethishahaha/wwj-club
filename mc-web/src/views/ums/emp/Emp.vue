@@ -3,68 +3,123 @@ import MyNav from "@/components/MyNav.vue";
 import MyTable from "@/components/MyTable.vue";
 import MyHead from "@/components/MyHead.vue";
 import { onMounted, ref, reactive } from "vue";
-import { myPage } from "@/request/index.js";
-import { selectApi, deleteApi, deleteBatchApi, pageApi } from "@/api/axios.js";
+import {getResponseData, myPage} from "@/request/index.js";
+import {selectApi, deleteApi, deleteBatchApi, pageApi, listApi} from "@/api/axios.js";
 import { ElMessage } from "element-plus";
+import {PROJECT_INFO} from "@/const/index.js";
+import {genderFormat} from "@/util/index.js";
 
 // 导航项列表
 const navItems = [
   { label: '用户管理', icon: 'Avatar' },
-  { label: '员工列表', icon: 'HomeFilled' },
+  { label: '员工列表', icon: 'User' },
 ]
+
+const deptOptions = reactive([])
+
+//加载部门列表
+onMounted(async()=>{
+  Object.values(getResponseData(await listApi({module:'dept'})))
+      .forEach(dept=>{
+        deptOptions.push({
+          label:dept.title,
+          value:dept.id
+        })
+      })
+})
 
 // 数据头
 const headItems = [
-  { type: 'ipt', span: 5, placeholder: '搜索员工名', callback: pageByTitle }
+  {type: 'ipt', span: 5, placeholder: '输入账号搜索', callback: pageByUsername},
+  {type: 'ipt', span: 5, placeholder: '输入手机号码搜索', callback: pageByPhone},
+  {type: 'ipt', span: 5, placeholder: '输入姓名搜索', callback: pageByRealname},
+  {type: 'opt', span: 5, placeholder: '选择部门搜索', callback: pageByDeptId,options:deptOptions},
 ]
 
-// 表格列信息
 const tableColumns = [
-  { label: '员工账号', prop: 'username' },
-  { label: '真实姓名', prop: 'realname' },
+  { label: '头像', prop: 'avatar',type: 'img',minio:minio },
+  { label: '姓名', prop: 'realname',width:80 },
+  { label: '部门', prop: 'dept.title' },
+  { label: '性别', prop: 'gender', type: 'tag', format: genderFormat, tagTypeFn: e => e == 0 ? 'primary' : 'success' },
+  { label: '介绍', prop: 'info', type: 'card' },
+  { label: '登录账号', prop: 'username' },
   { label: '手机号码', prop: 'phone' },
-  { label: '邮箱地址', prop: 'email' },
-  { label: '性别', prop: 'gender', type: 'tag', formatter: (val) => {
-      const genderMap = { 0: '女', 1: '男', 2: '保密' };
-      return genderMap[val] || '未知';
-    }
-  },
-  { label: '年龄', prop: 'age', type: 'tag' },
-  { label: '入职时间', prop: 'hiredate', type: 'card' },
-  { label: '所属部门', prop: 'fk_dept_id', type: 'card' },
+  { label: '身份证号', prop: 'idcard' },
+  { label: '微信', prop: 'wechat' },
+  { label: '邮箱', prop: 'email' },
+  { label: '年龄', prop: 'age' },
+  { label: '籍贯', prop: 'province' },
   { label: '现居住地', prop: 'address', type: 'card' },
-  { label: '员工描述', prop: 'info', type: 'card' },
+  { label: '入职时间', prop: 'hiredate' },
 ];
 
-// 表格数据 + 分页信息 + 员工名称
+// 查找Minio头像
+function minio(src) {
+  return PROJECT_INFO.minioHost + '/avatar/' + src;
+}
+
+// 表格数据 + 分页信息 + 名称
 const records = ref();
-const pageInfo = reactive({ pageNum: 1, pageSize: 5, total: 0, callback: page });
-const Title = ref();
+const pageInfo = reactive({pageNum: 1, pageSize: 5, total: 0, callback: page});
+const username = ref();
+const realname = ref();
+const phone = ref();
+const deptId = ref();
+
+function pageByUsername(val) {
+  if (val || username.value) {
+    username.value = val;
+    page();
+  }
+}
+
+function pageByPhone(val) {
+  if (val || phone.value) {
+    phone.value = val;
+    page();
+  }
+}
+
+function pageByRealname(val) {
+  if (val || realname.value) {
+    realname.value = val;
+    page();
+  }
+}
+
+function pageByDeptId(val) {
+  if (val || deptId.value) {
+    deptId.value = val;
+    page();
+  }
+}
+
 
 // 分装一个分页查询函数
 async function page(pageNum = pageInfo['pageNum'], pageSize = pageInfo['pageSize']) {
   let config = {
     api: pageApi,
-    args: { module: 'emp' },
-    params: { pageNum, pageSize },
+    args: {module: 'emp'},
+    params: {pageNum, pageSize},
     records, pageInfo
   };
-  if (Title.value) { //如果用户查询时填写了xx名称，就额外再增加一个查询参数
-    config.params.title = Title.value
+  if (username.value) {
+    config.params['username'] = username.value;
+  }
+  if (realname.value) {
+    config.params['realname'] = realname.value;
+  }
+  if (phone.value) {
+    config.params['phone'] = phone.value;
+  }
+  if (deptId.value) {
+    config.params['fkDeptId'] = deptId.value;
   }
   // 发送分页查询请求
   await myPage(config);
 }
 
-// 搜索xx名
-function pageByTitle(val) {
-  if (val || Title.value) { //仅当输入框有值，或者Title不为空时，发送分页查询（按xx名）
-    Title.value = val;
-    page();
-  }
-}
-
-// 删除xx成功时，显示消息提醒
+// 删除员工成功时，显示消息提醒
 function deleteSuccess() {
   ElMessage.success('删除成功');
   page();//刷新网页

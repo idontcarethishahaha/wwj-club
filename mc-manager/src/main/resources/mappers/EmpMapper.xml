@@ -3,43 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.mdxq.wwjclub.ums.dao.EmpMapper">
     <insert id="insert">
-        insert into ums_emp (
-            username,
-            password,
-            avatar,
-            phone,
-            wechat,
-            email,
-            gender,
-            age,
-            province,
-            address,
-            realname,
-            idcard,
-            fk_dept_id,
-            info,
-            hiredate
-        )
-        values (
-                   #{username},
-                   #{password},
-                   #{avatar},
-                   #{phone},
-                   #{wechat},
-                   #{email},
-                   #{gender},
-                   #{age},
-                   #{province},
-                   #{address},
-                   #{realname},
-                   #{idcard},
-                   #{fkDeptId},
-                   #{info},
-                   #{hiredate}
-               )
+        insert into ums_emp
+        (username, password, avatar, phone, wechat, email, gender, age,
+         province, address, realname, idcard, fk_dept_id, info, hiredate)
+        values
+            (#{username}, #{password}, #{avatar}, #{phone}, #{wechat}, #{email}, #{gender}, #{age},
+             #{province}, #{address}, #{realname}, #{idcard}, #{fkDeptId}, #{info}, #{hiredate})
     </insert>
-
-
 
     <delete id="delete">
         update ums_emp
@@ -51,7 +21,7 @@
         update ums_emp
         set deleted = 1, updated = current_timestamp
         <where>
-            id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
+            id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
         </where>
     </delete>
 
@@ -79,16 +49,49 @@
         where id = #{id} and version = #{version} and deleted = 0
     </update>
 
-    <!--只查询未删除（deleted = 0）的记录-->
     <select id="selectById" resultType="emp">
         select * from ums_emp
         where id = #{id} and deleted = 0
     </select>
 
-    <select id="list" resultType="emp">
+    <resultMap id="RM_EMP" type="emp">
+        <id column="id" property="id"/>
+        <result column="fk_dept_id" property="fkDeptId"/>
+        <association property="dept" column="fk_dept_id"
+                     select="org.mdxq.wwjclub.ums.dao.DeptMapper.selectById"/>
+    </resultMap>
+
+<!--    <select id="list" resultType="emp">-->
+<!--        select * from ums_emp-->
+<!--        <where>-->
+<!--            <if test="username != null">username = #{username} and </if>-->
+<!--            <if test="realname != null">realname = #{realname} and </if>-->
+<!--            <if test="phone != null">phone = #{phone} and</if>-->
+<!--            <if test="fkDeptId != null">fk_dept_id = #{fkDeptId} and</if>-->
+<!--            deleted = 0-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="list" resultMap="RM_EMP">
         select * from ums_emp
         <where>
-            deleted = 0
+            <!-- 账号模糊查询：concat('%', 参数, '%') 实现前后匹配 -->
+            <if test="username != null and username != ''">
+                username like concat('%', #{username}, '%')
+            </if>
+            <!-- 姓名模糊查询 -->
+            <if test="realname != null and realname != ''">
+                and realname like concat('%', #{realname}, '%')
+            </if>
+            <!-- 手机号模糊查询 -->
+            <if test="phone != null and phone != ''">
+                and phone like concat('%', #{phone}, '%')
+            </if>
+            <!-- 部门ID是精确查询 -->
+            <if test="fkDeptId != null">
+                and fk_dept_id = #{fkDeptId}
+            </if>
+            <!-- 固定条件：查询未删除数据 -->
+            and deleted = 0
         </where>
     </select>
 </mapper>

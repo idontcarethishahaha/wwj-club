@@ -10,8 +10,8 @@ import {reactive} from "vue";
 // 定义导航项
 const navItems = [
   {label:'用户管理',icon:'List'},
-  {label:'角色列表',icon:'User',url:'/Role'},
-  {label:'编辑角色',icon:'Plus'}
+  {label:'角色列表',icon:'UserFilled',url:'/Role'},
+  {label:'编辑角色',icon:'Edit'}
 ]
 // 定义表单项
 const formItems = [

@@ -2,6 +2,7 @@ package org.mdxq.wwjclub.ums.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.*;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.entity.Role;
@@ -9,6 +10,7 @@ import org.mdxq.wwjclub.exception.*;
 import org.mdxq.wwjclub.ums.dao.RoleMapper;
 import org.mdxq.wwjclub.ums.dto.*;
 import org.mdxq.wwjclub.ums.service.RoleService;
+import org.mdxq.wwjclub.ums.vo.RoleVO;
 import org.springframework.cache.annotation.*;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 类说明：角色信息管理实现类
+ * 类说明：角色业务实现类
  *
  * @author WuWenJin
  * @version 1.0
@@ -32,6 +34,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @CacheEvict(allEntries = true)//插入新值后缓存失效
     public boolean save(RoleInsertDTO dto) {
+        if(roleMapper.countByTitle(dto.getTitle()) > 0){
+            throw new RepeatRecordException("DB: 该角色已存在，不要重复添加");
+        }
         String info = dto.getInfo();
         // 将dto中的属性拷贝，得到一个 Role 对象
         Role role = BeanUtil.copyProperties(dto, Role.class);
@@ -49,14 +54,20 @@ public class RoleServiceImpl implements RoleService {
     @Retryable(retryFor = VersionException.class)
     public boolean update(RoleUpdateDTO dto) {
         Role role = roleMapper.selectById(dto.getId());
-        if(ObjectUtil.isNull(role)){
-            throw new ServerErrorException("DB: 该角色不存在或已删除");
+        if (role == null) {
+            throw new ServerErrorException("DB: 记录不存在或已删除");
         }
-        BeanUtil.copyProperties(dto, role);//从dto中复制属性新值
-        if(roleMapper.update(role) == 0) {
-            throw new VersionException("DB: 更新角色失败");
+        // 如果角色的title被改变了，需要保证修改后的title不存在
+        if (!StrUtil.equals(dto.getTitle(), role.getTitle())) {
+            if (roleMapper.countByTitle(dto.getTitle()) > 0) {
+                throw new RepeatRecordException("DB: 该角色已存在，请重新修改名称");
+            }
         }
-        return false;
+        BeanUtil.copyProperties(dto, role);
+        if (roleMapper.update(role) == 0) {
+            throw new VersionException("DB: 角色更新失败");
+        }
+        return true;
     }
 
     @Override
@@ -89,5 +100,10 @@ public class RoleServiceImpl implements RoleService {
     public PageInfo<Role> page(RolePageDTO dto) {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
         return new PageInfo<>(roleMapper.list(dto));
+    }
+
+    @Override
+    public List<RoleVO> listAll() {
+        return roleMapper.listAll();
     }
 }

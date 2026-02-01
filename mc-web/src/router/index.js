@@ -24,6 +24,12 @@ import DeptInsert from "@/views/ums/dept/DeptInsert.vue";
 import DeptUpdate from "@/views/ums/dept/DeptUpdate.vue";
 
 import Emp from "@/views/ums/emp/Emp.vue";
+import EmpInsert from "@/views/ums/emp/EmpInsert.vue";
+import EmpUpdate from "@/views/ums/emp/EmpUpdate.vue";
+
+import Menu from "@/views/ums/menu/Menu.vue";
+import MenuInsert from "@/views/ums/menu/MenuInsert.vue";
+import SubMenu from "@/views/ums/menu/SubMenu.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -53,10 +59,17 @@ const router = createRouter({
         {path:'/DeptUpdate',name:'DeptUpdate',component:DeptUpdate},
 
         {path:'/Emp',name:'Emp',component:Emp},
+        {path:'/EmpInsert',name:'EmpInsert',component:EmpInsert},
+        {path:'/EmpUpdate',name:'EmpUpdate',component:EmpUpdate},
 
         {path:'/Role',name:'Role',component:Role},
         {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
         {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
+
+
+        {path:'/Menu',name:'Menu',component:Menu},
+        {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
+        {path:'/SubMenu',name:'SubMenu',component:SubMenu},
 
 
     ]

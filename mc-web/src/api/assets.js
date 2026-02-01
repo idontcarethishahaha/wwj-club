@@ -6,6 +6,7 @@ import {MC_MANAGE_AXIOS} from "@/api/axios.js";
 export const UPLOAD_ASSETS_URL = PROJECT_INFO.manageHost +
     "/api/v1/assets/uploadPicture";
 
+
 //新增一个归还资产的函数
 export const returnAssetsApi = (id)=>{
     return MC_MANAGE_AXIOS.put(`assetsBorrow/returnAssets/${id}`)

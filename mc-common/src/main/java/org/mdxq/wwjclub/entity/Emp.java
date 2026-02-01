@@ -38,4 +38,6 @@ public class Emp implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    private Dept dept;//员工所属部门
 }

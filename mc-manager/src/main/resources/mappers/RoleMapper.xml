@@ -12,8 +12,9 @@
         <set>
             <if test="title != null">title = #{title},</if>
             <if test="info != null">info = #{info},</if>
-            <if test="updated != null">updated = #{updated},</if>
-            version = version + 1
+<!--            <if test="updated != null">updated = #{updated},</if>-->
+            version = version + 1,
+            updated = current_timestamp
         </set>
         where id = #{id} and version = #{version} and deleted = 0
     </update>
@@ -40,9 +41,17 @@
         select * from ums_role
         <where>
             <if test="title != null and title != ''">
-                title like '%${param1}%' and
+                title like '%${title}%' and
             </if>
             deleted = 0
         </where>
+    </select>
+
+    <select id="listAll" resultType="org.mdxq.wwjclub.ums.vo.RoleVO">
+        select id,title from ums_role where deleted = 0
+    </select>
+
+    <select id="countByTitle" resultType="java.lang.Integer">
+        select count(*) from ums_role where title = #{param1} and deleted = 0
     </select>
 </mapper>

@@ -5,6 +5,7 @@ import org.mdxq.wwjclub.entity.Role;
 import org.mdxq.wwjclub.ums.dto.RoleInsertDTO;
 import org.mdxq.wwjclub.ums.dto.RolePageDTO;
 import org.mdxq.wwjclub.ums.dto.RoleUpdateDTO;
+import org.mdxq.wwjclub.ums.vo.RoleVO;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface RoleService {
     boolean deleteById(Long id);
     boolean deleteBatch(List<Long> ids);
     PageInfo<Role> page(RolePageDTO dto);
+
+    List<RoleVO> listAll();
 }
