@@ -2,16 +2,14 @@ package org.mdxq.wwjclub.ums.service;
 
 import com.github.pagehelper.PageInfo;
 import org.mdxq.wwjclub.entity.Emp;
-import org.mdxq.wwjclub.ums.dto.EmpInsertDTO;
-import org.mdxq.wwjclub.ums.dto.EmpPageDTO;
-import org.mdxq.wwjclub.ums.dto.EmpUpdateDTO;
-import org.mdxq.wwjclub.ums.dto.UpdatePasswordDTO;
+import org.mdxq.wwjclub.ums.dto.*;
+import org.mdxq.wwjclub.ums.vo.LoginVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 /**
- * 接口说明：员工信息管理业务接口
+ * 接口说明：员工业务接口
  *
  * @author WuWenJin
  * @version 1.0
@@ -29,4 +27,6 @@ public interface EmpService {
     String uploadAvatar(MultipartFile newFile, Long id);
 
     boolean updatePassword(UpdatePasswordDTO dto);
+
+    LoginVO login(LoginDTO loginDTO);
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import org.mdxq.wwjclub.constant.MC;
 
 /**
- * 类说明：课程插入DTO
+ * 类说明：课程更新DTO
  *
  * @author WuWenJin
  * @version 1.0
@@ -19,8 +19,12 @@ import org.mdxq.wwjclub.constant.MC;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "课程插入DTO")
-public class CourseInsertDTO {
+@Schema(description = "课程更新DTO")
+public class CourseUpdateDTO {
+
+    @Schema(description = "主键ID")
+    @NotNull(message = "主键ID不能为空")
+    private Long id;
 
     @Schema(description = "课程名称")
     @NotEmpty(message = "课程名称不能为空")

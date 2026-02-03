@@ -34,4 +34,12 @@ public interface EmpMapper extends BaseMapper<Emp> {
 
     @Override
     Emp selectById(Long id);
+
+    /**
+     * 根据用户名和密码查询员工信息
+     * @param username
+     * @param password
+     * @return
+     */
+    Emp selectByAccount(String username,String password);
 }

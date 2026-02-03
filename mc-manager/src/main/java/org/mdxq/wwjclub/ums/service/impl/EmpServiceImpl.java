@@ -10,14 +10,14 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.constant.MC;
 import org.mdxq.wwjclub.entity.Emp;
+import org.mdxq.wwjclub.exception.IllegalParamException;
 import org.mdxq.wwjclub.exception.ServerErrorException;
 import org.mdxq.wwjclub.exception.VersionException;
 import org.mdxq.wwjclub.ums.dao.EmpMapper;
-import org.mdxq.wwjclub.ums.dto.EmpInsertDTO;
-import org.mdxq.wwjclub.ums.dto.EmpPageDTO;
-import org.mdxq.wwjclub.ums.dto.EmpUpdateDTO;
-import org.mdxq.wwjclub.ums.dto.UpdatePasswordDTO;
+import org.mdxq.wwjclub.ums.dto.*;
 import org.mdxq.wwjclub.ums.service.EmpService;
+import org.mdxq.wwjclub.ums.vo.LoginVO;
+import org.mdxq.wwjclub.util.JwtUtil;
 import org.mdxq.wwjclub.util.MinioUtil;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -41,8 +41,23 @@ public class EmpServiceImpl implements EmpService {
     @Resource
     private EmpMapper empMapper;
 
+    @Override
+    public LoginVO login(LoginDTO loginDTO) {
+        String username = loginDTO.getUsername();
+        String password = SecureUtil.md5(loginDTO.getPassword());
+        // 根据用户名和密码查询员工
+        //Emp emp = empMapper.selectByAccount(loginDTO.getUsername(), loginDTO.getPassword());
+        Emp emp = empMapper.selectByAccount(username,password);
+        if (emp == null) {
+            throw new IllegalParamException("用户名或密码错误");
+        }
+        // 生成 JWT Token 令牌，包含了3个员工信息:员工ID，真实姓名，头像
+        String token = JwtUtil.build(emp.getId(),emp.getRealname(),emp.getAvatar());
+        // 将Token和员工信息封装成 vo 返回客户端
+        return new LoginVO(token,emp);
+    }
 
-//    @Override
+    //    @Override
 //    @CacheEvict(allEntries = true)
 //    public boolean save(EmpInsertDTO dto) {
 //        Emp emp = BeanUtil.copyProperties(dto, Emp.class);

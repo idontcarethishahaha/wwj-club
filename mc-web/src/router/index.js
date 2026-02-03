@@ -31,6 +31,10 @@ import Menu from "@/views/ums/menu/Menu.vue";
 import MenuInsert from "@/views/ums/menu/MenuInsert.vue";
 import SubMenu from "@/views/ums/menu/SubMenu.vue";
 
+import Login from "@/views/Login.vue";
+
+import Main from "@/views/Main.vue";
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -70,6 +74,10 @@ const router = createRouter({
         {path:'/Menu',name:'Menu',component:Menu},
         {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
         {path:'/SubMenu',name:'SubMenu',component:SubMenu},
+
+        {path:'/Login',name:'Login',component:Login},
+
+        {path:'/Main',name:'Main',component:Main},
 
 
     ]

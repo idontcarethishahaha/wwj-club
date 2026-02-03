@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.result.Result;
-import org.mdxq.wwjclub.ums.dto.EmpInsertDTO;
-import org.mdxq.wwjclub.ums.dto.EmpPageDTO;
-import org.mdxq.wwjclub.ums.dto.EmpUpdateDTO;
-import org.mdxq.wwjclub.ums.dto.UpdatePasswordDTO;
+import org.mdxq.wwjclub.ums.dto.*;
 import org.mdxq.wwjclub.ums.service.EmpService;
 import org.mdxq.wwjclub.ums.service.EmpService;
 import org.springframework.validation.annotation.Validated;
@@ -83,5 +80,11 @@ public class EmpController {
     @PostMapping("uploadAvatar/{id}")
     public Result uploadAvatar(@RequestParam("avatarFile") MultipartFile avatarFile, @PathVariable("id") Long id) {
         return new Result(empService.uploadAvatar(avatarFile, id));
+    }
+
+    @PostMapping("loginByAccount")
+    @Operation(summary = "登录 - 账号密码")
+    public Result loginByAccount(@RequestBody @Validated LoginDTO dto) {
+        return new Result(empService.login(dto));
     }
 }

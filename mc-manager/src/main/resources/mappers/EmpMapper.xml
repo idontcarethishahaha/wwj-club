@@ -94,4 +94,11 @@
             and deleted = 0
         </where>
     </select>
+
+    <select id="selectByAccount" resultMap="RM_EMP">
+        select * from ums_emp
+        where (username = #{param1} or phone = #{param1})
+        and password = #{param2}
+        and deleted = 0
+    </select>
 </mapper>
