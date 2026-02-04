@@ -63,11 +63,23 @@ public class MenuController {
         return new Result(menuService.deleteBatch(ids));
     }
 
-//    @GetMapping("list")
-//    @Operation(summary = "查询 - 所有菜单")
-//    public Result list() {
-//        return new Result(menuService.listAll());
-//    }
+    @GetMapping("list")
+    @Operation(summary = "查询 - 所有菜单")
+    public Result list() {
+        return new Result(menuService.listAll());
+    }
+
+    @Operation(summary = "查询 - 根据员工ID")
+    @GetMapping("listByEmpId/{empId}")
+    public Result listByEmpId(@PathVariable("empId") Long empId) {
+        return new Result(menuService.listByEmpId(empId));
+    }
+
+    @Operation(summary = "查询 - 根据角色ID")
+    @GetMapping("listByRoleId/{roleId}")
+    public Result listByRoleId(@PathVariable("roleId") Long roleId) {
+        return new Result(menuService.listByRoleId(roleId));
+    }
 }
 
 

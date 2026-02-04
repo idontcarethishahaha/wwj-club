@@ -10,7 +10,7 @@ import {getResponseData} from "@/request/index.js";
 // 员工登录表单
 const loginForm = shallowRef();
 //const loginFormData = shallowReactive({username:'admin',password:'admin'});
-const loginFormData = shallowReactive({username:'liye',password:'admin'});
+const loginFormData = shallowReactive({username:'zhouhangyu',password:'root1314'});
 const loginFormRules = {
   username:RULE.USERNAME,password:RULE.PASSWORD
 }

@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Menu;
 import org.mdxq.wwjclub.entity.Menu;
+import org.mdxq.wwjclub.entity.RoleMenu;
 import org.mdxq.wwjclub.mapper.BaseMapper;
 import org.mdxq.wwjclub.ums.vo.MenuVO;
 
@@ -16,11 +17,20 @@ import java.util.List;
  * @version 1.0
  * @date 2026/1/26 9:31
  */
-
+// RBAC 基于角色的管理控制
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu>{
 
     List<MenuVO> listAll();
+
+    List<MenuVO> listByEmpId(Long empId);
+
+    List<MenuVO> listByRoleId(Long roleId);
+
+    // 修改 = 删除旧的 + 新的
+    int deleteByRoleId(Long roleId);
+
+    int batchInsertRoleMenu(List<RoleMenu> roleMenus);
 
 //    @Override
 //    int insert(Menu role);

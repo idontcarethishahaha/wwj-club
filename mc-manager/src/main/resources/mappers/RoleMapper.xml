@@ -6,6 +6,12 @@
        insert into ums_role(title,info)
        values (#{title},#{info})
     </insert>
+    <insert id="insertEmpRoleBatch">
+        insert into ums_emp_role (fk_emp_id, fk_role_id)
+        values <foreach collection="list" item="er" separator=",">
+        (#{er.fkEmpId},#{er.fkRoleId})
+            </foreach>
+    </insert>
 
     <update id="update">
         update ums_role
@@ -32,6 +38,11 @@
             id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
         </where>
     </delete>
+    <delete id="deleteRoleByEmpId">
+        update ums_emp_role
+        set deleted = 1, updated = current_timestamp
+        where fk_emp_id = #{param1}
+    </delete>
     <!--只查询未删除（deleted = 0）的记录-->
     <select id="selectById" resultType="role">
         select * from ums_role where id = #{param1} and deleted = 0
@@ -54,4 +65,12 @@
     <select id="countByTitle" resultType="java.lang.Integer">
         select count(*) from ums_role where title = #{param1} and deleted = 0
     </select>
+    <!--连接角色表和员工角色关系表，查询某个员工锁拥有的角色-->
+    <select id="listByEmpId" resultType="org.mdxq.wwjclub.ums.vo.RoleVO">
+        select r.id,r.title
+        from ums_role as r join ums_emp_role as er
+        on r.id = er.fk_role_id and er.fk_emp_id=#{param1} and r.deleted=0 and er.deleted=0
+    </select>
+
+
 </mapper>

@@ -35,64 +35,75 @@ import Login from "@/views/Login.vue";
 
 import Main from "@/views/Main.vue";
 
+import Personal from "@/views/Personal.vue";
+import PersonalUpdate from "@/views/PersonalUpdate.vue";
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
-        {path:'/Room',name:'Room',component:Room},
-        {path:'/RoomInsert',name:'RoomInsert',component:RoomInsert},
-        {path:'/RoomUpdate',name:'RoomUpdate',component:RoomUpdate},
+        {path:'/',name:'Login',component:Login},
+        {
+           path:'/Main',name:'Main',component:Main,
+           children: [
+               {path:'/Room',name:'Room',component:Room},
+               {path:'/RoomInsert',name:'RoomInsert',component:RoomInsert},
+               {path:'/RoomUpdate',name:'RoomUpdate',component:RoomUpdate},
 
-        {path:'/School',name:'School',component:School},
-        {path:'/SchoolInsert',name:'SchoolInsert',component:SchoolInsert},
-        {path:'/SchoolUpdate',name:'SchoolUpdate',component:SchoolUpdate},
+               {path:'/School',name:'School',component:School},
+               {path:'/SchoolInsert',name:'SchoolInsert',component:SchoolInsert},
+               {path:'/SchoolUpdate',name:'SchoolUpdate',component:SchoolUpdate},
 
-        {path:'/Room',name:'Room',component:Room},
-        {path:'/RoomInsert',name:'RoomInsert',component:RoomInsert},
-        {path:'/RoomUpdate',name:'RoomUpdate',component:RoomUpdate},
+               {path:'/Assets',name:'Assets',component:Assets},
+               {path:'/AssetsInsert',name:'AssetsInsert',component:AssetsInsert},
+               {path:'/AssetsUpdate',name:'AssetsUpdate',component:AssetsUpdate},
 
-        {path:'/Assets',name:'Assets',component:Assets},
-        {path:'/AssetsInsert',name:'AssetsInsert',component:AssetsInsert},
-        {path:'/AssetsUpdate',name:'AssetsUpdate',component:AssetsUpdate},
+               {path:'/AssetsBorrow',name:'AssetsBorrow',component:AssetsBorrow},
+               {path:'/AssetsBorrowInsert',name:'AssetsBorrowInsert',component:AssetsBorrowInsert},
+               {path:'/AssetsBorrowUpdate',name:'AssetsBorrowUpdate',component:AssetsBorrowUpdate},
 
-        {path:'/AssetsBorrow',name:'AssetsBorrow',component:AssetsBorrow},
-        {path:'/AssetsBorrowInsert',name:'AssetsBorrowInsert',component:AssetsBorrowInsert},
-        {path:'/AssetsBorrowUpdate',name:'AssetsBorrowUpdate',component:AssetsBorrowUpdate},
+               {path:'/Dept',name:'Dept',component:Dept},
+               {path:'/DeptInsert',name:'DeptInsert',component:DeptInsert},
+               {path:'/DeptUpdate',name:'DeptUpdate',component:DeptUpdate},
 
-        {path:'/Dept',name:'Dept',component:Dept},
-        {path:'/DeptInsert',name:'DeptInsert',component:DeptInsert},
-        {path:'/DeptUpdate',name:'DeptUpdate',component:DeptUpdate},
+               {path:'/Emp',name:'Emp',component:Emp},
+               {path:'/EmpInsert',name:'EmpInsert',component:EmpInsert},
+               {path:'/EmpUpdate',name:'EmpUpdate',component:EmpUpdate},
 
-        {path:'/Emp',name:'Emp',component:Emp},
-        {path:'/EmpInsert',name:'EmpInsert',component:EmpInsert},
-        {path:'/EmpUpdate',name:'EmpUpdate',component:EmpUpdate},
-
-        {path:'/Role',name:'Role',component:Role},
-        {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
-        {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
-
-
-        {path:'/Menu',name:'Menu',component:Menu},
-        {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
-        {path:'/SubMenu',name:'SubMenu',component:SubMenu},
-
-        {path:'/Login',name:'Login',component:Login},
-
-        {path:'/Main',name:'Main',component:Main},
+               {path:'/Role',name:'Role',component:Role},
+               {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
+               {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
 
 
+               {path:'/Menu',name:'Menu',component:Menu},
+               {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
+               {path:'/SubMenu',name:'SubMenu',component:SubMenu},
+
+               {path:'/Personal',name:'Personal',component:Personal},
+               {path:'/PersonalUpdate',name:'PersonalUpdate',component:PersonalUpdate},
+           ]
+        }
     ]
 });
 
-/*
- * 路由前置守卫：每次转发路由前执行的函数
- * param to: 来源地址
- * param from: 目标地址
- * next: 放行函数
- */
+// /*
+//  * 路由前置守卫：每次转发路由前执行的函数
+//  * param to: 来源地址
+//  * param from: 目标地址
+//  * next: 放行函数
+//  */
+// router.beforeEach((to, from, next) => {
+//     // console.log(to, from);
+//     // 放行：支持使用 next('/ABC') 表示放行到指定页面
+//     next();
+// });
 router.beforeEach((to, from, next) => {
-    // console.log(to, from);
-    // 放行：支持使用 next('/ABC') 表示放行到指定页面
-    next();
+    if (to.path === '/' || sessionStorage.getItem('token')) {
+        next();
+    } else {
+        next('/');
+        //console.log("无权限")
+        alert("无权限")
+    }
 });
 
 export default router

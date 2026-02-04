@@ -41,6 +41,21 @@ public class MenuServiceImpl implements MenuService {
     private MenuMapper menuMapper;
 
     @Override
+    public List<MenuVO> listByRoleId(Long roleId) {
+        return menuMapper.listByRoleId(roleId);
+    }
+
+    @Override
+    public List<MenuVO> listByEmpId(Long empId) {
+        return menuMapper.listByEmpId(empId);
+    }
+
+    @Override
+    public boolean updateByRoleId(Long roleId, String menuIds) {
+        return false;
+    }
+
+    @Override
     @CacheEvict(allEntries = true)
     public boolean save(MenuInsertDTO dto) {
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);

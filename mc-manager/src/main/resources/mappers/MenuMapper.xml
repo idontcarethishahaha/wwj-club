@@ -7,6 +7,23 @@
        values (#{title},#{url}, #{icon}, #{pid}, #{info})
     </insert>
 
+    <insert id="batchInsertRoleMenu">
+        insert into ums_role_menu(fk_role_id, fk_menu_id)
+        values
+            <foreach collection="list" separator="," item="rm">
+                (#{fkRoleId},#{fkMenuId})
+            </foreach>
+    </insert>
+
+
+
+    <!--删除该角色的所有菜单-->
+    <delete id="deleteByRoleId">
+       update ums_role_menu
+       set deleted = 1,updated = current_timestamp
+       where fk_role_id = #{parmam1}
+    </delete>
+
     <delete id="delete">
        update ums_menu
        set deleted = 1,updated = current_timestamp
@@ -20,6 +37,7 @@
            id IN <foreach collection="list" open="(" close=")" separator=",">#{id}</foreach>
        </where>
     </delete>
+
 
     <update id="update">
         update ums_menu
@@ -55,5 +73,21 @@
        from ums_menu as m1 left join ums_menu m2
        on m1.pid = m2.id
        where m1.deleted = 0
+    </select>
+
+    <!--将员工-角色关系表和角色-菜单关系表连接，根据员工ID查找其有权访问的菜单ID，使用in查询找出相应的菜单-->
+    <select id="listByEmpId" resultType="org.mdxq.wwjclub.ums.vo.MenuVO">
+        select id, title, pid ,icon,info,url from ums_menu where id in (
+            select distinct rm.fk_menu_id
+            from ums_emp_role as er join ums_role_menu as rm
+                 on rm.fk_role_id = er.fk_role_id and er.fk_emp_id=#{param1}
+                      and er.deleted = 0 and rm.deleted = 0
+        ) and deleted = 0
+    </select>
+
+    <select id="listByRoleId" resultType="org.mdxq.wwjclub.ums.vo.MenuVO">
+        select id, title, pid from ums_menu where id in (
+            select fk_menu_id from ums_role_menu as rm where fk_role_id = #{param1} and rm.deleted = 0
+        ) and deleted = 0
     </select>
 </mapper>

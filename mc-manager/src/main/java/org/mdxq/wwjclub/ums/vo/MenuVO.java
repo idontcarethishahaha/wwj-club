@@ -19,4 +19,7 @@ public class MenuVO {
     private String title;
     private Long pid;//父菜单id
     private String parentTitle;//父菜单名称
+    private String icon;
+    private String info;
+    private String url;
 }

@@ -30,4 +30,10 @@ public interface MenuService {
     PageInfo<Menu> page(MenuPageDTO dto);
 
     List<MenuVO> listAll();
+
+    List<MenuVO> listByRoleId(Long roleId);
+
+    List<MenuVO> listByEmpId(Long empId);
+
+    boolean updateByRoleId(Long roleId,String menuIds);
 }

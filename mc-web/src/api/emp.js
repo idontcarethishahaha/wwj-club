@@ -10,3 +10,8 @@ export function loginByAccountApi(params){
     // 向服务端发起登录请求
     return MC_MANAGE_AXIOS.post('emp/loginByAccount',params)
 }
+
+// 定义一个修改员工密码的接口
+export function updatePasswordApi(params){
+    return MC_MANAGE_AXIOS.put('emp/updatePassword',params)
+}
