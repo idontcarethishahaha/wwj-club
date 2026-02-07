@@ -30,4 +30,7 @@ public class Club implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    // 增加一个保存班级方向的属性
+    private Direction direction;
 }

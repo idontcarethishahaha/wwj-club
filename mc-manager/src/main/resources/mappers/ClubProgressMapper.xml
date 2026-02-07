@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.cms.dao.ClubProgressMapper">
+    <insert id="insert">
+       insert into cms_club_progress (idx, fk_club_id, fk_room_id, fk_manager_id,
+       fk_assistant_id, fk_teacher_id, fk_course_id, start_time, expected_end_time,info)
+       values (#{idx}, #{fkClubId}, #{fkRoomId}, #{fkManagerId},#{fkAssistantId}, #{fkTeacherId},
+               #{fkCourseId}, #{startTime}, #{expectedEndTime}, #{info})
+    </insert>
+
+    <update id="update">
+        update cms_club_progress
+        <set>
+            <if test="idx != null">idx = #{idx},</if>
+            <if test="fkClubId != null">fk_club_id = #{fkClubId},</if>
+            <if test="fkRoomId != null">fk_room_id = #{fkRoomId},</if>
+            <if test="fkManagerId != null">fk_manager_id = #{fkManagerId},</if>
+            <if test="fkAssistantId != null">fk_assistant_id = #{fkAssistantId},</if>
+            <if test="fkTeacherId != null">fk_teacher_id = #{fkTeacherId},</if>
+            <if test="fkCourseId != null">fk_course_id = #{fkCourseId},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="expectedEndTime != null">expected_end_time = #{expectedEndTime},</if>
+            <if test="info != null">info = #{info},</if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        <where>
+            id = #{id} and deleted = 0 and version = #{version}
+        </where>
+    </update>
+
+    <delete id="delete">
+      update cms_club_progress
+      set deleted = 1, updated = current_timestamp
+      where id = #{parma1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update cms_club_progress set deleted = 1, updated = current_timestamp
+        <where>
+            id in <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+
+<!--    &lt;!&ndash;只查询未删除（deleted = 0）的记录&ndash;&gt;-->
+<!--    <select id="selectById">-->
+<!--        select * from cms_club_progress where id = #{param1} and deleted = 0-->
+<!--    </select>-->
+
+    <!--带有外键需要嵌套查询-->
+    <resultMap id="RM_CLUB_PROGRESS" type="clubProgress">
+        <id property="id" column="id"/>
+        <result property="fkRoomId" column="fk_room_id"/>
+        <result property="fkAssistantId" column="fk_assistant_id"/>
+        <result property="fkClubId" column="fk_club_id"/>
+        <result property="fkCourseId" column="fk_course_id"/>
+        <result property="fkManagerId" column="fk_manager_id"/>
+        <result property="fkTeacherId" column="fk_teacher_id"/>
+        <association property="room" column="fk_room_id" select="org.mdxq.wwjclub.rms.dao.RoomMapper.selectById"></association>
+        <association property="club" column="fk_club_id" select="org.mdxq.wwjclub.cms.dao.ClubMapper.selectById"></association>
+        <association property="course" column="fk_course_id" select="org.mdxq.wwjclub.cms.dao.CourseMapper.selectById"></association>
+        <association property="teacher" column="fk_teacher_id" select="org.mdxq.wwjclub.ums.dao.EmpMapper.selectById"></association>
+        <association property="assistant" column="fk_assistant_id" select="org.mdxq.wwjclub.ums.dao.EmpMapper.selectById"></association>
+        <association property="manager" column="fk_manager_id" select="org.mdxq.wwjclub.ums.dao.EmpMapper.selectById"></association>
+    </resultMap>
+
+    <resultMap id="RM_CLUB_PROGRESS_2" type="clubProgress">
+        <id property="id" column="id"/>
+        <result property="fkRoomId" column="fk_room_id"/>
+        <result property="fkAssistantId" column="fk_assistant_id"/>
+        <result property="fkClubId" column="fk_club_id"/>
+        <result property="fkCourseId" column="fk_course_id"/>
+        <result property="fkManagerId" column="fk_manager_id"/>
+        <result property="fkTeacherId" column="fk_teacher_id"/>
+        <association property="room" column="fk_room_id" columnPrefix="rm_"></association>
+        <association property="club" column="fk_club_id" columnPrefix="cl_"></association>
+        <association property="course" column="fk_course_id" columnPrefix="co_"></association>
+        <association property="teacher" column="fk_teacher_id" columnPrefix="te_"></association>
+        <association property="assistant" column="fk_assistant_id" columnPrefix="ass_"></association>
+        <association property="manager" column="fk_manager_id" columnPrefix="ma_"></association>
+    </resultMap>
+
+    <select id="selectById" resultMap="RM_CLUB_PROGRESS_2">
+        select cp.*,
+               cl.id as cl_id, cl.title     as cl_title,
+               co.id as co_id, co.title     as co_title,
+               te.id as te_id, te.realname  as te_realname,
+               rm.id as rm_id, rm.title     as rm_title,
+               ass.id as ass_id, ass.realname as ass_realname,
+               ma.id as ma_id, ma.realname as ma_realname
+        from cms_club_progress as cp
+                 join cms_club   as cl on cp.fk_club_id      = cl.id
+                 join cms_course as co on cp.fk_course_id    = co.id
+                 join rms_room   as rm on cp.fk_room_id      = rm.id
+                 join ums_emp    as te on cp.fk_teacher_id   = te.id
+                 join ums_emp    as ass on cp.fk_assistant_id = ass.id
+                 join ums_emp    as ma  on cp.fk_manager_id  = ma.id
+        where cp.id = #{param1} and deleted = 0
+    </select>
+
+    <select id="list" resultMap="RM_CLUB_PROGRESS">
+        select * from cms_club_progress
+        <where>
+            <if test="fkClubId != null">fk_club_id = #{fkClubId} and</if>
+            <if test="fkCourseId != null">fk_course_id = #{fkCourseId} and</if>
+            deleted = 0
+        </where>
+    </select>
+</mapper>

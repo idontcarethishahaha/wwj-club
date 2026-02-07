@@ -34,4 +34,10 @@ public class ClubProgress implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    private Club club;
+    private Course course;
+    private Room room;
+    private Emp manager,assistant,teacher;
+
 }

@@ -1,6 +1,8 @@
 package org.mdxq.wwjclub.cms.service;
 
 import com.github.pagehelper.PageInfo;
+import org.mdxq.wwjclub.cms.vo.CourseVO;
+import org.mdxq.wwjclub.cms.vo.DirectionVO;
 import org.mdxq.wwjclub.entity.Course;
 import org.mdxq.wwjclub.cms.dto.CourseInsertDTO;
 import org.mdxq.wwjclub.cms.dto.CoursePageDTO;
@@ -17,11 +19,13 @@ import java.util.List;
  */
 
 public interface CourseService {
-//    boolean save(CourseInsertDTO dto);
-//    boolean update(CourseUpdateDTO dto);
-//    Course getById(Long id);
-//    boolean deleteById(Long id);
-//    boolean deleteBatch(List<Long> ids);
-//    PageInfo<Course> page(CoursePageDTO dto);
+    boolean save(CourseInsertDTO dto);
+    boolean update(CourseUpdateDTO dto);
+    Course getById(Long id);
+    boolean deleteById(Long id);
+    boolean deleteBatch(List<Long> ids);
+    PageInfo<Course> page(CoursePageDTO dto);
+
+    List<CourseVO> listAll();
 }
 

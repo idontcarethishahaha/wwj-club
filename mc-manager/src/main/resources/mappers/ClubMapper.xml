@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.cms.dao.ClubMapper">
+    <insert id="insert">
+        insert into cms_club (title, tag, fk_direction_id, start_time, expected_end_time, info)
+        values (#{title}, #{tag}, #{fkDirectionId}, #{startTime}, #{expectedEndTime}, #{info})
+    </insert>
+
+    <delete id="delete">
+        update cms_club set deleted = 1, updated = current_timestamp where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update cms_club set deleted = 1, updated = current_timestamp
+        <where>
+            id in <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+
+    <update id="update">
+        update cms_club
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="fkDirectionId != null">fk_direction_id = #{fkDirectionId},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="expectedEndTime != null">expected_end_time = #{expectedEndTime},</if>
+            <if test="info != null">info = #{info},</if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        <where>
+            id = #{id} and deleted = 0 and version = #{version}
+        </where>
+    </update>
+
+    <resultMap id="RM_CLUB" type="club">
+        <id column="id" property="id"/>
+        <result column="fk_direction_id" property="fkDirectionId"/>
+        <association property="direction" column="fk_direction_id"
+                     select="org.mdxq.wwjclub.cms.dao.DirectionMapper.selectById"></association>
+    </resultMap>
+
+    <select id="selectById" resultMap="RM_CLUB">
+        select * from cms_club where id = #{param1} and deleted = 0
+    </select>
+
+    <select id="list" resultMap="RM_CLUB">
+        select * from cms_club
+        <where>
+            <if test="title != null">title like '%${title}%' and</if>
+            <if test="fkDirectionId != null">fk_direction_id = #{fkDirectionId} and</if>
+            deleted = 0
+        </where>
+    </select>
+
+    <select id="listAll" resultType="org.mdxq.wwjclub.cms.vo.ClubVO">
+        select id, title from cms_club where deleted = 0
+    </select>
+</mapper>

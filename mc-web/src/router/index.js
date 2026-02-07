@@ -31,12 +31,26 @@ import Menu from "@/views/ums/menu/Menu.vue";
 import MenuInsert from "@/views/ums/menu/MenuInsert.vue";
 import SubMenu from "@/views/ums/menu/SubMenu.vue";
 
+import Direction from "@/views/cms/direction/Direction.vue";
+import DirectionInsert from "@/views/cms/direction/DirectionInsert.vue";
+import DirectionUpdate from "@/views/cms/direction/DirectionUpdate.vue";
+
 import Login from "@/views/Login.vue";
 
 import Main from "@/views/Main.vue";
 
 import Personal from "@/views/Personal.vue";
 import PersonalUpdate from "@/views/PersonalUpdate.vue";
+
+import Course from "@/views/cms/course/Course.vue";
+import CourseInsert from "@/views/cms/course/CourseInsert.vue";
+import CourseUpdate from "@/views/cms/course/CourseUpdate.vue";
+
+import Club from "@/views/cms/club/Club.vue";
+import ClubInsert from "@/views/cms/club/ClubInsert.vue";
+import ClubUpdate from "@/views/cms/club/ClubUpdate.vue";
+
+import ClubProgress from "@/views/cms/progress/ClubProgress.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -78,8 +92,23 @@ const router = createRouter({
                {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
                {path:'/SubMenu',name:'SubMenu',component:SubMenu},
 
+               {path:'/Direction',name:'Direction',component:Direction},
+               {path:'/DirectionInsert',name:'DirectionInsert',component:DirectionInsert},
+               {path:'/DirectionUpdate',name:'DirectionUpdate',component:DirectionUpdate},
+
                {path:'/Personal',name:'Personal',component:Personal},
                {path:'/PersonalUpdate',name:'PersonalUpdate',component:PersonalUpdate},
+
+               {path:'/Course',name:'Course',component:Course},
+               {path:'/CourseInsert',name:'CourseInsert',component:CourseInsert},
+               {path:'/CourseUpdate',name:'CourseUpdate',component:CourseUpdate},
+
+               {path:'/Club',name:'Club',component:Club},
+               {path:'/ClubInsert',name:'ClubInsert',component:ClubInsert},
+               {path:'/ClubUpdate',name:'ClubUpdate',component:ClubUpdate},
+
+               {path:'/ClubProgress',name:'ClubProgress',component:ClubProgress},
+
            ]
         }
     ]

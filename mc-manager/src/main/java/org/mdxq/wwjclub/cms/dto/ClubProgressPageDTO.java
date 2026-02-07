@@ -1,7 +1,7 @@
 package org.mdxq.wwjclub.cms.dto;
 
-/**
- * 类说明：分页查询课程DTO
+/*
+ * 类说明：分页查询班级DTO
  *
  * @author WuWenJin
  * @version 1.0
@@ -15,13 +15,14 @@ import org.mdxq.wwjclub.dto.PageDTO;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "分页查询课程的DTO")
+@Schema(description = "进度分页查询DTO")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CoursePageDTO extends PageDTO {
-    @Schema(description = "课程名称")
-    private String title;
+public class ClubProgressPageDTO extends PageDTO {
 
-    @Schema(description = "课程类别")
-    private String category;
+    @Schema(description = "课程ID")
+    private Long fkCourseId;
+
+    @Schema(description = "班级ID")
+    private Long fkClubId;
 }
