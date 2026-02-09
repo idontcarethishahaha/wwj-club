@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.mdxq.wwjclub.cms.dao.ClubProgressMapper;
 import org.mdxq.wwjclub.cms.dto.ClubProgressInsertDTO;
 import org.mdxq.wwjclub.cms.dto.ClubProgressPageDTO;
@@ -25,6 +26,7 @@ import java.util.List;
  * @version 1.0
  * @date 2026/1/24 14:44
  */
+@Slf4j
 @Service
 @CacheConfig(cacheNames = "clubProgress")//配置Redis缓存名
 public class ClubProgressServiceImpl implements ClubProgressService {
@@ -46,26 +48,44 @@ public class ClubProgressServiceImpl implements ClubProgressService {
         return true;
     }
 
+//    @Override
+//    public boolean update(ClubProgressUpdateDTO dto) {
+//        ClubProgress ClubProgress = clubProgressMapper.selectById(dto.getId());
+//        if (ClubProgress == null) {
+//            throw new ServerErrorException("DB：记录不存在或已删除");
+//        }
+//        BeanUtil.copyProperties(dto, ClubProgress);
+//        if (clubProgressMapper.update(ClubProgress) == 0) {
+//            throw new VersionException("DB：班级进度更新失败");
+//        }
+//        return true;
+//    }
+
     @Override
     public boolean update(ClubProgressUpdateDTO dto) {
-        ClubProgress ClubProgress = clubProgressMapper.selectById(dto.getId());
-        if (ClubProgress == null) {
-            throw new ServerErrorException("DB：记录不存在或已删除");
+        log.info("更新班级进度，DTO参数：{}", dto);
+        ClubProgress clubProgress = clubProgressMapper.selectById(dto.getId());
+        log.info("查询到原记录：{}", clubProgress);
+        BeanUtil.copyProperties(dto, clubProgress, true);
+        if (StrUtil.isEmpty(clubProgress.getInfo())) {
+            clubProgress.setInfo("暂无介绍");
         }
-        BeanUtil.copyProperties(dto, ClubProgress);
-        if (clubProgressMapper.update(ClubProgress) == 0) {
-            throw new VersionException("DB：班级进度更新失败");
+        log.info("更新后的记录：{}", clubProgress);
+        int updateCount = clubProgressMapper.update(clubProgress);
+        log.info("更新行数：{}", updateCount);
+        if (updateCount == 0) {
+            throw new VersionException("DB：班级进度更新失败（更新行数为0）");
         }
         return true;
     }
 
     @Override
     public ClubProgress getById(Long id) {
-        ClubProgress ClubProgress = clubProgressMapper.selectById(id);
-        if (ClubProgress == null) {
+        ClubProgress clubProgress = clubProgressMapper.selectById(id);
+        if (clubProgress == null) {
             throw new ServerErrorException("DB：记录不存在或已删除");
         }
-        return ClubProgress;
+        return clubProgress;
     }
 
     @Override

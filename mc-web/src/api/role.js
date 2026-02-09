@@ -6,6 +6,6 @@ export function listByEmpId(empId){
 }
 
 // 修改员工的角色
-export function updateByRoleId(empId,roleIds){
-    return MC_MANAGE_AXIOS.put(`'role/updateByEmpId?empId=${empId}&roleIds=${roleIds}`)
+export function updateByEmpId(empId,roleIds){
+    return MC_MANAGE_AXIOS.put(`role/updateByEmpId?empId=${empId}&roleIds=${roleIds}`)
 }

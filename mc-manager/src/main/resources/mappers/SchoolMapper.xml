@@ -52,4 +52,8 @@
                 </if>
        </where>
     </select>
+
+    <select id="listAll" resultType="org.mdxq.wwjclub.rms.vo.SchoolVO">
+        select id, title,college from rms_school where deleted = 0
+    </select>
 </mapper>

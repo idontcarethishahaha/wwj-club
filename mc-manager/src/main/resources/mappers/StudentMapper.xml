@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.mdxq.wwjclub.cms.dao.StudentMapper">
+    <insert id="insert">
+        insert into cms_student (avatar,number, realname, phone, gender, wechat, age, province, address, fk_school_id, fk_salesman_id,
+                                 fk_club_id, idcard, study_date, emergency_name, emergency_phone, status, info)
+        values ((#{avatar},#{number}, #{realname}, #{phone}, #{gender}, #{wechat}, #{age}, #{province}, #{address}, #{fkSchoolId}, #{fkSalesmanId},
+                #{fkClubId}, #{idcard}, #{studyDate}, #{emergencyName}, #{emergencyPhone}, #{status}, #{info})
+    </insert>
+
+    <update id="update">
+        update cms_student
+        <set>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="realname != null">realname = #{realname},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="fkSchoolId != null">fk_school_id = #{fkSchoolId},</if>
+            <if test="fkSalesmanId != null">fk_salesman_id = #{fkSalesmanId},</if>
+            <if test="fkClubId != null">fk_club_id = #{fkClubId},</if>
+            <if test="idcard != null">idcard = #{idcard},</if>
+            <if test="studyDate != null">study_date = #{studyDate},</if>
+            <if test="emergencyName != null">emergency_name = #{emergencyName},</if>
+            <if test="emergencyPhone != null">emergency_phone = #{emergencyPhone},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="info != null">info = #{info},</if>
+            version = version + 1,
+            updated = current_timestamp
+        </set>
+        where id = #{id} and deleted = 0
+    </update>
+
+    <delete id="delete">
+        update cms_student
+        set deleted = 1, updated = current_timestamp
+        where id = #{param1}
+    </delete>
+
+    <delete id="deleteBatch">
+        update cms_student
+        set deleted = 1, updated = current_timestamp
+        <where>
+            id IN <foreach collection="list" item="id" open="(" close=")" separator=",">#{id}</foreach>
+        </where>
+    </delete>
+
+    <resultMap id="RM_STUDENT" type="student">
+        <id property="id" column="id"/>
+        <result property="fkClubId" column="fk_club_id"/>
+        <result property="fkSchoolId" column="fk_school_id"/>
+        <result property="fkSalesmanId" column="fk_salesman_id"/>
+        <association property="club" column="fk_club_id" select="org.mdxq.wwjclub.cms.dao.ClubMapper.selectById"/>
+        <association property="school" column="fk_school_id" select="org.mdxq.wwjclub.rms.dao.SchoolMapper.selectById"/>
+        <association property="counselor" column="fk_salesman_id" select="org.mdxq.wwjclub.ums.dao.EmpMapper.selectById"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="RM_STUDENT">
+        select * from cms_student where id = #{param1} and deleted = 0
+    </select>
+
+<!--    <select id="list" resultMap="RM_STUDENT">-->
+<!--        select * from cms_student-->
+<!--        <where>-->
+<!--            <if test="number != null">number = #{number} and</if>-->
+<!--            <if test="realname != null">realname = #{realname} and</if>-->
+<!--            <if test="fkSchoolId != null">fk_school_id = #{fkSchoolId} and</if>-->
+<!--            <if test="fkClubId != null">fk_club_id = #{fkClubId} and</if>-->
+<!--            deleted = 0-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="list" resultMap="RM_STUDENT">
+        select * from cms_student
+        <where>
+            <if test="number != null and number != ''">
+                number LIKE CONCAT('%', #{number}, '%')
+            </if>
+            <if test="realname != null and realname != ''">
+                and realname LIKE CONCAT('%', #{realname}, '%')
+            </if>
+            <if test="fkSchoolId != null">
+                and fk_school_id = #{fkSchoolId}
+            </if>
+            <if test="fkClubId != null">
+                and fk_club_id = #{fkClubId}
+            </if>
+            and deleted = 0
+        </where>
+    </select>
+</mapper>

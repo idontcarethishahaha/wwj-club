@@ -68,4 +68,10 @@ public class SchoolController {
     public Result page(@Validated SchoolPageDTO dto) {
         return new Result(schoolService.page(dto));
     }
+
+    @Operation(summary = "查询 - 所有学校")
+    @GetMapping("list")
+    public Result list() {
+        return new Result(schoolService.listAll());
+    }
 }

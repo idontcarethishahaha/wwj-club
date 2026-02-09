@@ -21,10 +21,10 @@ const formItems = [
   {label: 'xx', prop: 'xx', required: true, span: 24, type: 'textarea'},
 ]
 //表单值
-const formValues = ref({capacity:0})
+const formValues = ref({})
 //表单项规则：对表单输入值进行格式校验提醒
 const rules = {
-  title:RULE.TITLE,address:RULE.ADDRESS,info:RULE.INFO
+  title:RULE.TITLE,info:RULE.INFO
 }
 //添加成功的响应函数
 function insertSuccess(){

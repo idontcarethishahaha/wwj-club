@@ -4,8 +4,8 @@ import MyTable from "@/components/MyTable.vue";
 import MyHead from "@/components/MyHead.vue";
 import { onMounted, ref, reactive } from "vue";
 import {getResponseData, myPage} from "@/request/index.js";
-import { deleteApi, deleteBatchApi, pageApi,listApi } from "@/api/axios.js";
-import { ElMessage } from "element-plus";
+import {deleteApi, deleteBatchApi, pageApi, listApi, MC_MANAGE_AXIOS} from "@/api/axios.js";
+import {ElMessage, ElMessageBox} from "element-plus";
 import {isNotNull} from "@/util/index.js";
 
 // 分别定义班级和课程的options
@@ -97,12 +97,41 @@ function deleteSuccess() {
 
 // 当网页挂载完成，默认执行分页查询
 onMounted(() => page());
+
+const buttons = [
+  {label: '结束进度', icon: 'Finished', callback: finishProgress}
+]
+
+// 定义一个结束课程进度的函数
+function finishProgress(item) {
+  ElMessageBox.confirm('确定要结束该课程进度吗？', '结束课程进度确认', {
+    type: 'primary',
+    confirmButtonText: '确定',
+    confirmButtonType: 'primary',
+    cancelButtonText: '取消',
+    cancelButtonType: 'info'
+  }).then(() => {
+    MC_MANAGE_AXIOS.put(`clubProgress/finish/${item.id}`)
+        .then(res => {
+          const data = getResponseData(res);
+          if (data) {
+            ElMessage.success('课程结束');
+            page();//执行Page函数刷新页面
+          } else {
+            ElMessage.error('结束课程失败');
+          }
+        })
+  }).catch(() => {
+    ElMessage.info('已取消');
+  });
+}
 </script>
 
 <template>
   <my-nav :items="navItems"></my-nav>
   <my-head :items="headItems"></my-head>
   <my-table module="clubProgress"
+            :buttons="buttons"
             insert-page="/ClubProgressInsert"
             update-page="/ClubProgressUpdate"
             :page-info="pageInfo"

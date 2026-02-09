@@ -25,4 +25,7 @@ public interface RoleService {
     PageInfo<Role> page(RolePageDTO dto);
 
     List<RoleVO> listAll();
+    List<RoleVO> listByEmpId(Long empId);
+
+    boolean updateByEmpId(Long empId, List<Long> roleIds);
 }

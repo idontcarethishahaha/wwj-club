@@ -72,6 +72,23 @@ public class RoleController {
     public Result list() {
         return new Result(roleService.listAll());
     }
+
+    @GetMapping("listByEmpId/{empId}")
+    @Operation(summary = "查询 - 某个员工拥有的角色")
+    public Result listByEmpId(@PathVariable("empId") Long empId) {
+        return new Result(roleService.listByEmpId(empId));
+    }
+
+//    @PutMapping("updateByEmpId")
+//    @Operation(summary = "修改 - 员工的角色")
+//    public Result listByEmpId(@PathVariable("empId") Long empId,@RequestParam("roleIds") List<Long> roleIds) {
+//        return new Result(roleService.updateByEmpId(empId, roleIds));
+//    }
+@PutMapping ("updateByEmpId")
+@Operation (summary = "修改 - 员工的角色")
+public Result updateByEmpId (@RequestParam ("empId") Long empId, @RequestParam ("roleIds") List<Long> roleIds)
+{return new Result(roleService.updateByEmpId(empId, roleIds));}
+
 }
 
 

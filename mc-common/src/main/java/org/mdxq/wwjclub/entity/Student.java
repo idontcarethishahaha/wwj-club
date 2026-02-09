@@ -41,4 +41,9 @@ public class Student implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    // 额外添加三个成员，分别映射学生的学校、班级、负责老师（员工对象）
+    private School school;
+    private Club club;
+    private Emp counselor;//咨询老师
 }

@@ -5,12 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.cms.dto.ClubInsertDTO;
 import org.mdxq.wwjclub.cms.dto.ClubPageDTO;
+import org.mdxq.wwjclub.cms.dto.ClubProgressUpdateDTO;
 import org.mdxq.wwjclub.cms.dto.ClubUpdateDTO;
 import org.mdxq.wwjclub.cms.service.ClubService;
 import org.mdxq.wwjclub.result.Result;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -67,5 +69,14 @@ public class ClubController {
     @GetMapping("list")
     public Result list() {
         return new Result(clubService.listAll());
+    }
+
+    @PutMapping("finish/{id}")
+    @Operation(summary = "修改 - 班级结课时间")
+    public Result finish(@PathVariable("id") Long id) {
+        ClubUpdateDTO dto = new ClubUpdateDTO();
+        dto.setId(id);
+        dto.setEndTime(LocalDateTime.now());
+        return new Result(clubService.update(dto));
     }
 }

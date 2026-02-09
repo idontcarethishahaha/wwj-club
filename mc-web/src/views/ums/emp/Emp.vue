@@ -8,6 +8,7 @@ import {selectApi, deleteApi, deleteBatchApi, pageApi, listApi} from "@/api/axio
 import { ElMessage } from "element-plus";
 import {PROJECT_INFO} from "@/const/index.js";
 import {genderFormat} from "@/util/index.js";
+import router from "@/router/index.js";
 
 // 导航项列表
 const navItems = [
@@ -59,7 +60,7 @@ function minio(src) {
 }
 
 // 表格数据 + 分页信息 + 名称
-const records = ref();
+const records = ref([]);
 const pageInfo = reactive({pageNum: 1, pageSize: 5, total: 0, callback: page});
 const username = ref();
 const realname = ref();
@@ -127,12 +128,27 @@ function deleteSuccess() {
 
 // 当网页挂载完成，默认执行分页查询
 onMounted(() => page());
+
+const buttons = [
+  {label:'重设角色',icon:'Edit',callback:toEmpUpdateRoles}
+]
+// 声明一个跳转到给员工分配角色的页面
+function toEmpUpdateRoles(item){
+  router.push({
+      path: '/EmpUpdateRoles',//跳转到员工更新角色的页面
+      query:{//额外携带两个参数：员工ID和姓名
+        empId:item['id'],
+        realname:item['realname']
+      }
+  })
+}
 </script>
 
 <template>
   <my-nav :items="navItems"></my-nav>
   <my-head :items="headItems"></my-head>
   <my-table module="emp"
+            :buttons="buttons"
             insert-page="/EmpInsert"
             update-page="/EmpUpdate"
             :page-info="pageInfo"

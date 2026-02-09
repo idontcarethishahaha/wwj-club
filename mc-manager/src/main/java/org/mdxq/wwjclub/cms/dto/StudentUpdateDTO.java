@@ -21,8 +21,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "学生插入DTO")
-public class StudentInsertDTO {
+@Schema(description = "学生更新DTO")
+public class StudentUpdateDTO {
+    @Schema(description = "学号ID")
+    @NotNull(message = "学号不能为空")
+    private Long id;
 
     @Schema(description = "学生编号")
     @NotEmpty(message = "学生编号不能为空")
@@ -32,10 +35,6 @@ public class StudentInsertDTO {
     @NotEmpty(message = "学生姓名不能为空")
     @Pattern(regexp = MC.Regex.REALNAME_RE, message = MC.Regex.REALNAME_RE_MSG)
     private String realname;
-
-//    @Schema(description = "头像地址")
-//    @NotEmpty(message = "头像地址不能为空")
-//    private String avatar;
 
     @Schema(description = "手机号码")
     @NotEmpty(message = "手机号码不能为空")
@@ -60,6 +59,7 @@ public class StudentInsertDTO {
     @NotEmpty(message = "紧急联系人姓名不能为空")
     @Pattern(regexp = MC.Regex.REALNAME_RE, message = MC.Regex.REALNAME_RE_MSG)
     private String emergencyName;
+
     @Schema(description = "紧急联系人电话")
     @NotEmpty(message = "紧急联系人电话不能为空")
     @Pattern(regexp = MC.Regex.PHONE_RE, message = MC.Regex.PHONE_RE_MSG)
@@ -94,3 +94,4 @@ public class StudentInsertDTO {
     private String info;
 
 }
+

@@ -25,4 +25,9 @@ public class EmpRole implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    public EmpRole(Long fkEmpId, Long fkRoleId) {
+        this.fkEmpId = fkEmpId;
+        this.fkRoleId = fkRoleId;
+    }
 }

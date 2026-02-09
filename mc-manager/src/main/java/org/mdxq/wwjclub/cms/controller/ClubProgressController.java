@@ -11,6 +11,7 @@ import org.mdxq.wwjclub.result.Result;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -61,5 +62,14 @@ public class ClubProgressController {
     @Operation(summary = "查询 - 分页查询")
     public Result page(ClubProgressPageDTO dto) {
         return new Result(progressService.page(dto));
+    }
+
+    @PutMapping("finish/{id}")
+    @Operation(summary = "修改 - 结束课程")
+    public Result finish(@PathVariable("id") Long id) {
+        ClubProgressUpdateDTO dto = new ClubProgressUpdateDTO();
+        dto.setId(id);
+        dto.setEndTime(LocalDateTime.now());
+        return new Result(progressService.update(dto));
     }
 }

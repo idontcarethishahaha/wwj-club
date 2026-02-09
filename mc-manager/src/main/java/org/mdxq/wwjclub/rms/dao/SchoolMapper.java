@@ -1,9 +1,11 @@
 package org.mdxq.wwjclub.rms.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.mdxq.wwjclub.cms.vo.ClubVO;
 import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.School;
 import org.mdxq.wwjclub.mapper.BaseMapper;
+import org.mdxq.wwjclub.rms.vo.SchoolVO;
 
 import java.util.List;
 
@@ -35,6 +37,8 @@ public interface SchoolMapper extends BaseMapper<School> {
 
     @Override
     List<School> list(PageDTO pageDTO);
+
+    List<SchoolVO> listAll();
 
 }
 

@@ -37,11 +37,11 @@ public class DirectionServiceImpl implements DirectionService {
     @Override
     public boolean save(DirectionInsertDTO dto) {
 
-        Direction Direction = BeanUtil.copyProperties(dto, Direction.class);
+        Direction direction = BeanUtil.copyProperties(dto, Direction.class);
         if (ObjectUtil.isEmpty(dto.getInfo())) {
-            Direction.setInfo("暂无介绍");
+            direction.setInfo("暂无介绍");
         }
-        if (directionMapper.insert(Direction) == 0) {
+        if (directionMapper.insert(direction) == 0) {
             throw new ServerErrorException("DB：方向插入失败");
         }
         return true;
@@ -50,12 +50,12 @@ public class DirectionServiceImpl implements DirectionService {
     @Override
     @Retryable(retryFor = VersionException.class)
     public boolean update(DirectionUpdateDTO dto) {
-        Direction Direction = directionMapper.selectById(dto.getId());
-        if (Direction == null) {
+        Direction direction = directionMapper.selectById(dto.getId());
+        if (direction == null) {
             throw new ServerErrorException("DB：记录不存在或已删除");
         }
-        BeanUtil.copyProperties(dto, Direction);
-        if (directionMapper.update(Direction) == 0) {
+        BeanUtil.copyProperties(dto, direction);
+        if (directionMapper.update(direction) == 0) {
             throw new VersionException("DB：方向更新失败");
         }
         return true;
@@ -63,11 +63,11 @@ public class DirectionServiceImpl implements DirectionService {
 
     @Override
     public Direction getById(Long id) {
-        Direction Direction = directionMapper.selectById(id);
-        if (Direction == null) {
+        Direction direction = directionMapper.selectById(id);
+        if (direction == null) {
             throw new ServerErrorException("DB：记录不存在或已删除");
         }
-        return Direction;
+        return direction;
     }
 
     @Override

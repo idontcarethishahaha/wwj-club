@@ -21,12 +21,13 @@
             <if test="fkCourseId != null">fk_course_id = #{fkCourseId},</if>
             <if test="startTime != null">start_time = #{startTime},</if>
             <if test="expectedEndTime != null">expected_end_time = #{expectedEndTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
             <if test="info != null">info = #{info},</if>
             version = version + 1,
             updated = current_timestamp
         </set>
         <where>
-            id = #{id} and deleted = 0 and version = #{version}
+            id = #{id} and deleted = 0
         </where>
     </update>
 
@@ -96,7 +97,7 @@
                  join ums_emp    as te on cp.fk_teacher_id   = te.id
                  join ums_emp    as ass on cp.fk_assistant_id = ass.id
                  join ums_emp    as ma  on cp.fk_manager_id  = ma.id
-        where cp.id = #{param1} and deleted = 0
+        where cp.id = #{param1} and cp.deleted = 0
     </select>
 
     <select id="list" resultMap="RM_CLUB_PROGRESS">

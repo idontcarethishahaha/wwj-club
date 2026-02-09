@@ -71,7 +71,7 @@ function deleteSuccess() {
 onMounted(() => page());
 
 const buttons = [
-  {label:'查看子菜单',icon:'Menu',callback:toSubMenu}
+  // {label:'查看子菜单',icon:'Menu',callback:toSubMenu}
 ]
 // 跳转到子菜单列表
 function toSubMenu(row){

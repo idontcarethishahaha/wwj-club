@@ -3,6 +3,7 @@ package org.mdxq.wwjclub.rms.service;
 import com.github.pagehelper.PageInfo;
 import org.mdxq.wwjclub.entity.School;
 import org.mdxq.wwjclub.rms.dto.*;
+import org.mdxq.wwjclub.rms.vo.SchoolVO;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface SchoolService {
     boolean deleteById(Long id);
     boolean deleteBatch(List<Long> ids);
     PageInfo<School> page(SchoolPageDTO dto);
+
+    List<SchoolVO> listAll();
 }

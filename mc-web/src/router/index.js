@@ -26,9 +26,11 @@ import DeptUpdate from "@/views/ums/dept/DeptUpdate.vue";
 import Emp from "@/views/ums/emp/Emp.vue";
 import EmpInsert from "@/views/ums/emp/EmpInsert.vue";
 import EmpUpdate from "@/views/ums/emp/EmpUpdate.vue";
+import EmpUpdateRoles from "@/views/ums/emp/EmpUpdateRoles.vue";
 
 import Menu from "@/views/ums/menu/Menu.vue";
 import MenuInsert from "@/views/ums/menu/MenuInsert.vue";
+import MenuUpdate from "@/views/ums/menu/MenuUpdate.vue";
 import SubMenu from "@/views/ums/menu/SubMenu.vue";
 
 import Direction from "@/views/cms/direction/Direction.vue";
@@ -51,6 +53,13 @@ import ClubInsert from "@/views/cms/club/ClubInsert.vue";
 import ClubUpdate from "@/views/cms/club/ClubUpdate.vue";
 
 import ClubProgress from "@/views/cms/progress/ClubProgress.vue";
+import ClubProgressInsert from "@/views/cms/progress/ClubProgressInsert.vue";
+import ClubProgressUpdate from "@/views/cms/progress/ClubProgressUpdate.vue";
+
+import Student from "@/views/cms/student/Student.vue";
+import StudentInsert from "@/views/cms/student/StudentInsert.vue";
+import StudentUpdate from "@/views/cms/student/StudentUpdate.vue";
+
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -82,6 +91,7 @@ const router = createRouter({
                {path:'/Emp',name:'Emp',component:Emp},
                {path:'/EmpInsert',name:'EmpInsert',component:EmpInsert},
                {path:'/EmpUpdate',name:'EmpUpdate',component:EmpUpdate},
+               {path:'/EmpUpdateRoles',name:'EmpUpdateRoles',component:EmpUpdateRoles},
 
                {path:'/Role',name:'Role',component:Role},
                {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
@@ -90,6 +100,7 @@ const router = createRouter({
 
                {path:'/Menu',name:'Menu',component:Menu},
                {path:'/MenuInsert',name:'MenuInsert',component:MenuInsert},
+               {path:'/MenuUpdate',name:'MenuUpdate',component:MenuUpdate},
                {path:'/SubMenu',name:'SubMenu',component:SubMenu},
 
                {path:'/Direction',name:'Direction',component:Direction},
@@ -108,6 +119,12 @@ const router = createRouter({
                {path:'/ClubUpdate',name:'ClubUpdate',component:ClubUpdate},
 
                {path:'/ClubProgress',name:'ClubProgress',component:ClubProgress},
+               {path:'/ClubProgressInsert',name:'ClubProgressInsert',component:ClubProgressInsert},
+               {path:'/ClubProgressUpdate',name:'ClubProgressUpdate',component:ClubProgressUpdate},
+
+               {path:'/Student',name:'Student',component:Student},
+               {path:'/StudentInsert',name:'StudentInsert',component:StudentInsert},
+               {path:'/StudentUpdate',name:'StudentUpdate',component:StudentUpdate},
 
            ]
         }

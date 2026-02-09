@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.*;
 import jakarta.annotation.Resource;
+import org.mdxq.wwjclub.entity.EmpRole;
 import org.mdxq.wwjclub.entity.Role;
 import org.mdxq.wwjclub.exception.*;
 import org.mdxq.wwjclub.ums.dao.RoleMapper;
@@ -15,6 +16,8 @@ import org.springframework.cache.annotation.*;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,5 +108,27 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleVO> listAll() {
         return roleMapper.listAll();
+    }
+
+    @Override
+    public List<RoleVO> listByEmpId(Long empId) {
+        return roleMapper.listByEmpId(empId);
+    }
+
+    @Override
+    @Transactional
+    public boolean updateByEmpId(Long empId, List<Long> roleIds) {
+        // 先删除员工原有的角色
+        roleMapper.deleteRoleByEmpId(empId);
+        List<EmpRole> empRoles = new ArrayList<>();
+
+        // 添加所有的员工ID和角色ID对
+        roleIds.forEach(roleId -> {
+            empRoles.add(new EmpRole(empId, roleId));
+        });
+
+        // 重新添加角色
+        roleMapper.insertEmpRoleBatch(empRoles);
+        return true;
     }
 }

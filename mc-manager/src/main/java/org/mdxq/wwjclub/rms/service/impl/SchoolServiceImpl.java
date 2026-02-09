@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.mdxq.wwjclub.cms.vo.ClubVO;
 import org.mdxq.wwjclub.entity.Room;
 import org.mdxq.wwjclub.entity.School;
 import org.mdxq.wwjclub.exception.ServerErrorException;
@@ -14,6 +15,7 @@ import org.mdxq.wwjclub.rms.dao.SchoolMapper;
 import org.mdxq.wwjclub.rms.dto.*;
 import org.mdxq.wwjclub.rms.service.RoomService;
 import org.mdxq.wwjclub.rms.service.SchoolService;
+import org.mdxq.wwjclub.rms.vo.SchoolVO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -101,5 +103,10 @@ public class SchoolServiceImpl implements SchoolService {
     public PageInfo<School> page(SchoolPageDTO dto) {
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
         return new PageInfo<>(schoolMapper.list(dto));
+    }
+
+    @Override
+    public List<SchoolVO> listAll() {
+        return schoolMapper.listAll();
     }
 }

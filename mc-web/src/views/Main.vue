@@ -129,8 +129,8 @@ function logout(){
         <el-row class="is-align-middle">
           <el-col class="fold-expand" :span="2">
             <el-radio-group v-model="isCollapse">
-              <el-radio-button :label="!isCollapse">
-                <my-icon :icon="isCollapse ? 'Expand' : 'fold'" size="20"></my-icon>
+              <el-radio-button :value="!isCollapse">
+                <my-icon :icon="isCollapse ? 'Expand' : 'fold'" :size="20"></my-icon>
               </el-radio-button>
             </el-radio-group>
           </el-col>
@@ -156,7 +156,7 @@ function logout(){
               <el-button icon="Management" size="small" round @click="openProjectSkillDrawer"></el-button>
             </el-tooltip>
             <el-tooltip content="日历">
-              <el-button icon="calendar" size="small" round @click="openCalenderDrawer"></el-button>
+              <el-button icon="calendar" size="small" round @click="openCalendarDrawer"></el-button>
             </el-tooltip>
             <el-divider direction="vertical"/>
           </el-col>
