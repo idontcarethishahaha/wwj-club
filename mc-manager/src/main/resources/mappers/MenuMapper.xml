@@ -10,9 +10,9 @@
     <insert id="batchInsertRoleMenu">
         insert into ums_role_menu(fk_role_id, fk_menu_id)
         values
-            <foreach collection="list" separator="," item="rm">
-                (#{fkRoleId},#{fkMenuId})
-            </foreach>
+          <foreach collection="list" separator="," item="rm">
+            (#{rm.fkRoleId},#{rm.fkMenuId})
+          </foreach>
     </insert>
 
 
@@ -21,7 +21,7 @@
     <delete id="deleteByRoleId">
        update ums_role_menu
        set deleted = 1,updated = current_timestamp
-       where fk_role_id = #{parmam1}
+       where fk_role_id = #{param1}
     </delete>
 
     <delete id="delete">
@@ -61,7 +61,7 @@
     <select id="list" resultType="menu">
        select * from ums_menu
        <where>
-           <if test="title != null">title like '%${totle}%' and</if>
+           <if test="title != null">title like '%${title}%' and</if>
            <if test="pid != null">pid =#{pid} and</if>
            deleted = 0
        </where>
@@ -69,7 +69,7 @@
 
     <!-- 使用左外连接将Menu表连接到父菜单，分别查到当前菜单的id、title和父菜单的id和title -->
     <select id="listAll" resultType="org.mdxq.wwjclub.ums.vo.MenuVO">
-       select m1.id,m1.title
+       select m1.id,m1.title,m2.id as pid,m2.title as parentTitle
        from ums_menu as m1 left join ums_menu m2
        on m1.pid = m2.id
        where m1.deleted = 0

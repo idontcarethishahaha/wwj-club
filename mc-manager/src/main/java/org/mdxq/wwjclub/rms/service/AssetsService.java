@@ -10,6 +10,7 @@ import org.mdxq.wwjclub.rms.dao.RoomMapper;
 import org.mdxq.wwjclub.rms.dto.AssetsInsertDTO;
 import org.mdxq.wwjclub.rms.dto.AssetsPageDTO;
 import org.mdxq.wwjclub.rms.dto.AssetsUpdateDTO;
+import org.mdxq.wwjclub.rms.excel.AssetsExcel;
 import org.mdxq.wwjclub.util.MinioUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,5 +44,6 @@ public interface AssetsService {
      */
     String uploadPicture(MultipartFile newFile, Long id);
 
-
+    //获取资产记录的Excel数据
+    List<AssetsExcel> getExcelData();
 }

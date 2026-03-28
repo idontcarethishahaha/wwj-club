@@ -46,5 +46,7 @@ public class Assets implements Serializable {
     private LocalDateTime created;
     /** 修改时间 */
     private LocalDateTime updated;
+
+
 }
 

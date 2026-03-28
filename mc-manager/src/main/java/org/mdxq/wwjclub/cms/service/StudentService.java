@@ -4,7 +4,9 @@ import com.github.pagehelper.PageInfo;
 import org.mdxq.wwjclub.cms.dto.StudentInsertDTO;
 import org.mdxq.wwjclub.cms.dto.StudentPageDTO;
 import org.mdxq.wwjclub.cms.dto.StudentUpdateDTO;
+import org.mdxq.wwjclub.cms.excel.StudentExcel;
 import org.mdxq.wwjclub.entity.Student;
+import org.mdxq.wwjclub.rms.excel.AssetsExcel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,4 +27,7 @@ public interface StudentService {
     PageInfo<Student> page(StudentPageDTO dto);
 
     String uploadAvatar(MultipartFile avatarFile,Long id);
+
+    //获取学生记录的Excel数据
+    List<StudentExcel> getExcelData();
 }

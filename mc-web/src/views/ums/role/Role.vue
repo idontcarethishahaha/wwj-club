@@ -6,6 +6,7 @@ import {ref,onMounted,reactive} from "vue";
 import {myPage} from "@/request/index.js";
 import {deleteApi,deleteBatchApi,pageApi} from "@/api/axios.js";
 import {ElMessage} from "element-plus";
+import router from "@/router/index.js";
 
 // 导航项列表
 const navItems = [
@@ -59,6 +60,21 @@ function deleteSuccess() {
 
 // 当网页挂载完成，默认执行分页查询
 onMounted(() => page());
+
+const buttons = [
+  {label:'重设菜单',icon:'Edit',callback:resetRoleMenus}
+]
+
+function resetRoleMenus(item){
+  // 点击重置菜单按钮后跳转到更新页面，同时携带角色id环绕角色名称
+  router.push({
+    path:'/RoleUpdateMenus',
+    query: {
+      roleId: item.id,
+      roleTitle: item.title
+    }
+  })
+}
 </script>
 
 <template>
@@ -67,6 +83,7 @@ onMounted(() => page());
   <my-table :page-info="pageInfo"
             :columns="tableColumns"
             :records="records"
+            :buttons="buttons"
             module="role"
             :delete-api="deleteApi"
             :delete-batch-api="deleteBatchApi"

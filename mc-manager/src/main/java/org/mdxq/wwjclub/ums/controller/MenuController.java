@@ -80,6 +80,12 @@ public class MenuController {
     public Result listByRoleId(@PathVariable("roleId") Long roleId) {
         return new Result(menuService.listByRoleId(roleId));
     }
+
+    @Operation(summary = "修改 - 角色的菜单")
+    @PutMapping("updateByRoleId")
+    public Result updateByRoleId(@RequestParam("roleId") Long roleId,@RequestParam("menuIds") String menuIds) {
+        return new Result(menuService.updateByRoleId(roleId,menuIds));
+    }
 }
 
 

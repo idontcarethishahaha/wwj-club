@@ -3,9 +3,11 @@ package org.mdxq.wwjclub.rms.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.mdxq.wwjclub.result.Result;
 import org.mdxq.wwjclub.rms.dto.*;
 import org.mdxq.wwjclub.rms.service.AssetsService;
+import org.mdxq.wwjclub.util.ExcelUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,5 +81,11 @@ public class AssetsController {
     @DeleteMapping("deleteBatch")
     public Result deleteBatch(@RequestParam("ids") List<Long> ids) {
         return new Result(assetsService.deleteBatch(ids));
+    }
+
+    @Operation(summary = "查询 - 导出数据表")
+    @GetMapping("/excel")
+    public void excel(HttpServletResponse response) {
+        ExcelUtil.download(response,"资产统计表",assetsService.getExcelData());
     }
 }

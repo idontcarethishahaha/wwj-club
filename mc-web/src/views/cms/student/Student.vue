@@ -3,7 +3,7 @@ import MyNav from "@/components/MyNav.vue";
 import MyTable from "@/components/MyTable.vue";
 import MyHead from "@/components/MyHead.vue";
 import { onMounted, ref, reactive } from "vue";
-import { selectApi, deleteApi, deleteBatchApi, pageApi,listApi } from "@/api/axios.js";
+import {selectApi, deleteApi, deleteBatchApi, pageApi, listApi, excelApi} from "@/api/axios.js";
 import { ElMessage } from "element-plus";
 import {getResponseData, myPage} from "@/request/index.js";
 import {genderFormat, studentStateFormat} from "@/util/index.js";
@@ -143,8 +143,18 @@ function pageByClub(val) {
   }
 }
 
+// 删除xx成功时，显示消息提醒
+function deleteSuccess() {
+  ElMessage.success('删除成功');
+  page();//刷新网页
+}
+
 // 当网页挂载完成，默认执行分页查询
 onMounted(() => page());
+
+function downloadExcel(){
+  excelApi('/student/excel','学生数据表');
+}
 </script>
 
 <template>
@@ -153,6 +163,7 @@ onMounted(() => page());
   <my-table module="student"
             insert-page="/StudentInsert"
             update-page="/StudentUpdate"
+            :excel-api="downloadExcel"
             :page-info="pageInfo"
             :columns="tableColumns"
             :records="records"

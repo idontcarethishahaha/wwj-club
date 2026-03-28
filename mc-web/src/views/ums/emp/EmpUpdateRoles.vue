@@ -66,5 +66,23 @@ async function updateRoles(){
 </template>
 
 <style scoped lang="scss">
+.role-menus-body {
+  text-align: center; // 内容居中
 
+  .role-menus-transfer {
+    margin-top: 65px; // 上外边距
+  }
+}
+
+:deep(.el-transfer-panel) {
+  width: 300px; // 宽度
+}
+
+:deep(.el-transfer-panel__body) {
+  height: 400px; // 高度
+}
+
+:deep(.el-transfer-panel__footer) {
+  text-align: center; // 内容居中
+}
 </style>

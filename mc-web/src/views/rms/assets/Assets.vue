@@ -4,7 +4,7 @@ import MyTable from "@/components/MyTable.vue";
 import MyHead from "@/components/MyHead.vue";
 import { onMounted, ref, reactive } from "vue";
 import { myPage } from "@/request/index.js";
-import { selectApi, deleteApi, deleteBatchApi, pageApi } from "@/api/axios.js";
+import { selectApi, deleteApi, deleteBatchApi, pageApi,excelApi } from "@/api/axios.js";
 import { ElMessage } from "element-plus";
 import {PROJECT_INFO} from "@/const/index.js";
 
@@ -71,6 +71,10 @@ function deleteSuccess() {
 
 // 当网页挂载完成，默认执行分页查询
 onMounted(() => page());
+
+function downloadExcel(){
+  excelApi('/assets/excel','资产数据表');
+}
 </script>
 
 <template>
@@ -80,6 +84,7 @@ onMounted(() => page());
             insert-page="/AssetsInsert"
             update-page="/AssetsUpdate"
             :page-info="pageInfo"
+            :excel-api="downloadExcel"
             :columns="tableColumns"
             :records="records"
             :delete-api="deleteApi"

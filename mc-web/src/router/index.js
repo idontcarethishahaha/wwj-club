@@ -14,6 +14,7 @@ import AssetsUpdate from "@/views/rms/assets/AssetsUpdate.vue";
 import Role from "@/views/ums/role/Role.vue";
 import RoleInsert from "@/views/ums/role/RoleInsert.vue";
 import RoleUpdate from "@/views/ums/role/RoleUpdate.vue";
+import RoleUpdateMenus from "@/views/ums/role/RoleUpdateMenus.vue";
 
 import AssetsBorrow from "@/views/rms/assetsBorrow/AssetsBorrow.vue";
 import AssetsBorrowInsert from "@/views/rms/assetsBorrow/AssetsBorrowInsert.vue";
@@ -96,6 +97,7 @@ const router = createRouter({
                {path:'/Role',name:'Role',component:Role},
                {path:'/RoleInsert',name:'RoleInsert',component:RoleInsert},
                {path:'/RoleUpdate',name:'RoleUpdate',component:RoleUpdate},
+               {path:'/RoleUpdateMenus',name:'RoleUpdateMenus',component:RoleUpdateMenus},
 
 
                {path:'/Menu',name:'Menu',component:Menu},

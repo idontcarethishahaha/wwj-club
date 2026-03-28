@@ -1,6 +1,7 @@
 package org.mdxq.wwjclub.ums.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
@@ -8,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.entity.Menu;
 import org.mdxq.wwjclub.entity.Role;
+import org.mdxq.wwjclub.entity.RoleMenu;
 import org.mdxq.wwjclub.exception.RepeatRecordException;
 import org.mdxq.wwjclub.exception.ServerErrorException;
 import org.mdxq.wwjclub.exception.VersionException;
@@ -25,7 +27,9 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * 类说明：菜单业务实现类
@@ -51,8 +55,28 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional
     public boolean updateByRoleId(Long roleId, String menuIds) {
-        return false;
+        // 先清空该角色已关联的所有菜单
+        menuMapper.deleteByRoleId(roleId);
+        List<RoleMenu> roleMenus = new ArrayList<>();
+        // 使用TreeSet自动去重并按数字升序排序
+        TreeSet<Long> menuIdSet = new TreeSet<>();
+        for (String menuId : menuIds.split(",")) {
+            // 排除空字符串，避免转换异常
+            if (StrUtil.isNotBlank(menuId)) {
+                menuIdSet.add(Long.parseLong(menuId));
+            }
+        }
+        // 将去重排序后的菜单ID封装为RoleMenu对象
+        menuIdSet.forEach(menuId -> {
+            roleMenus.add(new RoleMenu(roleId, menuId));
+        });
+        if(CollUtil.isNotEmpty(roleMenus)) {
+            // 批量插入角色-菜单关联关系
+            menuMapper.batchInsertRoleMenu(roleMenus);
+        }
+        return true;
     }
 
     @Override

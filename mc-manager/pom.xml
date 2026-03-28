@@ -133,4 +133,30 @@
         </dependency>
     </dependencies>
 
+    <!--利用Maven工具，将当前的服务端程序打包成一个jar包-->
+    <build>
+        <!--jar包名称-->
+        <finalName>mc-manager</finalName>
+        <plugins>
+            <!--配置SpringBoot插件-->
+           <plugin>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-maven-plugin</artifactId>
+               <version>2.4.8</version>
+               <!--指定启动类-->
+               <configuration>
+                   <mainClass>org.mdxq.wwjclub.ManageApp</mainClass>
+               </configuration>
+               <!--将本项目依赖的包都一并打包到最终的jar包-->
+               <executions>
+                   <execution>
+                       <goals>
+                           <goal>repackage</goal>
+                       </goals>
+                   </execution>
+               </executions>
+           </plugin>
+        </plugins>
+    </build>
+
 </project>

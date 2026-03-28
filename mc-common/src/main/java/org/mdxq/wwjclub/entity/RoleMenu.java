@@ -25,4 +25,9 @@ public class RoleMenu implements Serializable {
     private Integer deleted;
     private LocalDateTime created;
     private LocalDateTime updated;
+
+    public RoleMenu( Long fkRoleId, Long fkMenuId) {
+        this.fkMenuId = fkMenuId;
+        this.fkRoleId = fkRoleId;
+    }
 }

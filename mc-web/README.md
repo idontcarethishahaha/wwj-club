@@ -1,5 +1,64 @@
-# Vue 3 + Vite
+## 1.描述一下你的项目（wwj-club）
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+先介绍一下这个项目是干嘛的，有哪些模块，每个模块里都有什么功能
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+这个项目是一个面向学习型俱乐部的综合管理系统，
+旨在提供一个全面而高效的管理平台，该系统目前仅支持内部员工登录，登陆后可以轻松管理俱乐部的房间，学校，资产，部门，员工，角色，菜单，班级，课程，学员等相关数据。
+分为三大模块，资源管理模块rms（统一管理俱乐部场地、学校信息与固定资产，实现资产借用、审批、归还全流程管理），
+用户管理模块ums（管理俱乐部部门与员工信息，通过 RBAC 模型实现角色定义、菜单权限配置及员工权限分配），
+班级管理模块cms（覆盖课程方向 - 班级 - 课程配置，跟踪教学进度，管理学员学籍与学习状态）。
+
+
+
+## 2.你的这个项目都有哪些数据表，每个表都有哪些核心的字段，存的是什么数据？
+
+资产管理（RMS）、用户管理（UMS）、班级管理（CMS）三大核心模块共有15张数据表，资产管理模块（RMS）
+聚焦俱乐部物理资产、场地、学校信息及资产借用流程管理，共4张表：rms_room（房间表）、rms_school（学校表）、
+rms_assets（资产表）、rms_assets_borrow（资产申请表）；用户管理模块（UMS） 基于 RBAC 模型管理俱乐部员工、
+部门、角色、菜单及权限关联，共6张表：ums_dept（部门表）、ums_emp（员工表）、 ums_role（角色表）、
+ums_menu（菜单表）、ums_emp_role（员工角色关系表）、ums_role_menu（角色菜单关系表）；
+班级管理模块（CMS） 覆盖教学全流程，管理课程方向、班级、课程、进度及学员信息，共5张表：cms_direction（方向表）、
+cms_club（班级表）、cms_course（课程表）、cms_club_progress（班级进度表）、cms_student（学生表）。
+
+
+## 3.这个项目的技术架构和选型
+
+分别介绍服务端，客户端还有数据库及索引部分都用到了哪些技术
+
+这个项目使用前后端分离的模式进行开发，后端基于SpringBoot架构开发，使用经典的SSM架构，前端使用 Vue + ElementPlus 的组合，
+并引入 RBAC（基于角色的访问控制）模型。
+后端选用MyBatis作为持久层框架，配合PageHelper实现分页，通过JJWT生成令牌、Spring AOP拦截接口完成权限校验，借助Hutool、Lombok简化开发，
+集成MinIO处理文件存储、EasyExcel实现报表导出，用SpringBoot Admin监控服务状态；
+前端通过Axios对接后端接口，ECharts实现数据可视化，Sass统一样式；数据库采用MySQL，针对高频查询字段和外键建立索引，配合Redis缓存热点数据优化性能，
+同时用ElasticSearch实现全文检索、Nginx处理反向代理与跨域。
+
+## 4.你认为这个项目中存在哪些亮点？
+
+我觉得这个项目的核心亮点有4个：
+一是通用能力标准化，区分三类异常、统一返回Result对象，用AOP做校验和日志，
+Token拦截器+ThreadLocal存用户信息，减少重复代码。
+二是高性能处理，MinIO 实现分布式文件存储及校验，EasyExcel分片导出防内存溢出，JWT令牌支持无感刷新。
+三是引入RBAC权限模型，实现细粒度控制，权限校验与业务解耦，无需硬编码。
+四是代码规范，封装工具类、核心配置文件化，方便环境切换和维护。
+
+## 5.你的项目中存在哪些难点？
+
+JWT令牌的 “即将过期自动刷新”，通过判断有效期生成新Token；
+Excel大数据导出可能导致OOM，基于EasyExcel的分片写入机制
+MinIO异常处理，前置校验+异常转换，排查问题。
+
+## 6.这个项目的开发背景？你为啥做这个项目？
+
+这个项目是假期自主练习项目，目的的是实现技术落地实践、理解企业级开发规范、
+解决实际场景问题并积累项目经验，将所学技术整合到实际项目中，加深对技术原理的理解，提升综合开发能力。
+
+
+## 7.你是如何做版本控制的，代码托管在什么平台？
+
+版本控制方面，项目采用Git进行管理；分支管理上，主分支（main）用于发布稳定版本，开发分支（dev）用于日常开发，单个功能通过功能分支开发，完成后合并至dev分支；
+提交时加上备注信息，便于追溯记录，核心功能完成后打版本标签标记里程碑版本。代码托管主要放在 Gitee，同时同步至GitHub做备份，方便后续展示和学习复盘。
+
+
+## 8.将你项目的Gitee地址粘贴在下边？
+
+[wwj-club: 我的学习俱乐部项目！](https://gitee.com/wuwenjincat/wwj-club)

@@ -3,7 +3,7 @@ import router from "@/router/index.js";
 import MyIcon from "@/components/MyIcon.vue";
 import {ElNotification} from "element-plus";
 import {PROJECT_INFO, PROJECT_SKILLS} from "@/const/index.js";
-import {onBeforeMount, onMounted, ref, shallowRef} from "vue";
+import {onMounted, ref, shallowRef} from "vue";
 import {getResponseData} from "@/request/index.js";
 import {listByEmpId} from "@/api/menu.js";
 import vuex from "@/vuex/index.js";
@@ -13,11 +13,6 @@ const loginEmp = JSON.parse(sessionStorage.getItem('loginEmp'))
 const avatar = PROJECT_INFO.minioHost + '/avatar/' + loginEmp['avatar']
 // 定义系统的logo
 const logo = PROJECT_INFO.minioHost+'/logo.png';
-
-//test=================================
-console.log("登录员工信息：", loginEmp);
-console.log("头像字段：", loginEmp ? loginEmp['avatar'] : "loginEmp 不存在");
-//test=====================================
 
 //定义Menu相关对象
 let currentMenuIndex = shallowRef(router.currentRoute.value['path'])

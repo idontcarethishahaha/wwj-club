@@ -12,12 +12,15 @@ import org.mdxq.wwjclub.cms.dao.StudentMapper;
 import org.mdxq.wwjclub.cms.dto.StudentPageDTO;
 import org.mdxq.wwjclub.cms.dto.StudentInsertDTO;
 import org.mdxq.wwjclub.cms.dto.StudentUpdateDTO;
+import org.mdxq.wwjclub.cms.excel.StudentExcel;
 import org.mdxq.wwjclub.cms.service.StudentService;
 import org.mdxq.wwjclub.constant.MC;
 import org.mdxq.wwjclub.entity.Student;
 
 import org.mdxq.wwjclub.exception.ServerErrorException;
 import org.mdxq.wwjclub.exception.VersionException;
+import org.mdxq.wwjclub.rms.dto.AssetsPageDTO;
+import org.mdxq.wwjclub.rms.excel.AssetsExcel;
 import org.mdxq.wwjclub.util.MinioUtil;
 import org.springframework.cache.annotation.CacheConfig;
 
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -150,4 +154,12 @@ public String uploadAvatar(MultipartFile avatarFile, Long id) {
     }
     return newFileName;
 }
+
+    @Override
+    public List<StudentExcel> getExcelData() {
+        return studentMapper.list(new StudentPageDTO())
+                .stream()
+                .map(student -> BeanUtil.copyProperties(student, StudentExcel.class))
+                .collect(Collectors.toList());
+    }
 }

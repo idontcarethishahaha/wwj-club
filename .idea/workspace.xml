@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7a37ee5a-4231-46f6-b077-2d85a40c9b91" name="Changes" comment="新增了添加和修改教学进度，给用户分配角色">
+      <change afterPath="$PROJECT_DIR$/mc-manager/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/excel/StudentExcel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/excel/AssetsExcel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc-web/src/views/ums/role/RoleUpdateMenus.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-common/src/main/java/org/mdxq/wwjclub/entity/Assets.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-common/src/main/java/org/mdxq/wwjclub/entity/Assets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-common/src/main/java/org/mdxq/wwjclub/entity/RoleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-common/src/main/java/org/mdxq/wwjclub/entity/RoleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/cms/service/impl/StudentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/controller/AssetsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/controller/AssetsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/service/AssetsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/service/AssetsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/service/impl/AssetsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/rms/service/impl/AssetsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/ums/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/ums/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/ums/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/java/org/mdxq/wwjclub/ums/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-manager/src/main/resources/mappers/MenuMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mc-manager/src/main/resources/mappers/MenuMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/api/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/api/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/const/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/const/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/views/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/views/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/views/cms/student/Student.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/views/cms/student/Student.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/views/rms/assets/Assets.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/views/rms/assets/Assets.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/views/ums/emp/EmpUpdateRoles.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/views/ums/emp/EmpUpdateRoles.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc-web/src/views/ums/role/Role.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc-web/src/views/ums/role/Role.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Kotlin Class" />
+        <option value="Interface" />
+        <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="customMavenHome" value="D:\apache-maven-3.9.9" />
+        <option name="localRepository" value="D:\maven\repository" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.9.9\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="38bcpNiWwBgNW50tEjAFPVp3NeF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.mc-manager [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.mc-manager [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.wwj-club [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.wwj-club [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.wwj-club [install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ManageApp.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/workspace-java/wwj-club/mc-web/src/views/ums/menu&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;D:/workspace-java/wwj-club/mc-web/src/main/java/org/example/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SQL Dialects&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\idea\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ],
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+  }
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\ums\menu" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\cms\progress" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\cms\student" />
+      <recent name="D:\workspace-java\wwj-club\mc-manager\src\main\resources\mappers" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\cms\club" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace-java\wwj-club\mc-manager\src\main\java\org\mdxq\wwjclub\ums\dto" />
+      <recent name="D:\workspace-java\wwj-club\mc-manager\src\main\java\org\mdxq\wwjclub\cms\dto" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\assets\image" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\rms\school" />
+      <recent name="D:\workspace-java\wwj-club\mc-web\src\views\rms\room" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.mdxq.wwjclub.cms" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.mdxq.wwjclub.cms.controller" />
+      <recent name="org.mdxq.wwjclub.cms.service" />
+      <recent name="org.mdxq.wwjclub.ums.dto" />
+      <recent name="org.mdxq.wwjclub.cms.dto" />
+      <recent name="org.mdxq.wwjclub.cms.service.impl" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="ManageApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="mc-manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.mdxq.wwjclub.ManageApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mdxq.wwjclub.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ManageApp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7a37ee5a-4231-46f6-b077-2d85a40c9b91" name="Changes" comment="" />
+      <created>1769071896717</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769071896717</updated>
+      <workItem from="1769071897715" duration="1868000" />
+      <workItem from="1769131105080" duration="23511000" />
+      <workItem from="1769217000198" duration="23327000" />
+      <workItem from="1769350795375" duration="427000" />
+      <workItem from="1769389775802" duration="21806000" />
+      <workItem from="1769476165110" duration="19669000" />
+      <workItem from="1769562611531" duration="22217000" />
+      <workItem from="1769735082194" duration="708000" />
+      <workItem from="1769736056498" duration="23587000" />
+      <workItem from="1769820484426" duration="21382000" />
+      <workItem from="1769908096485" duration="23120000" />
+      <workItem from="1770080957277" duration="21782000" />
+      <workItem from="1770167300044" duration="21870000" />
+      <workItem from="1770204729213" duration="5000" />
+      <workItem from="1770253618354" duration="21996000" />
+      <workItem from="1770425689172" duration="2842000" />
+      <workItem from="1770428594737" duration="17634000" />
+      <workItem from="1770512895488" duration="20908000" />
+      <workItem from="1770598662517" duration="22054000" />
+      <workItem from="1772964531716" duration="4830000" />
+      <workItem from="1773916108083" duration="74000" />
+      <workItem from="1774196086043" duration="778000" />
+      <workItem from="1774513036147" duration="1219000" />
+      <workItem from="1774518409901" duration="19000" />
+      <workItem from="1774520367334" duration="12000" />
+      <workItem from="1774662155146" duration="1413000" />
+    </task>
+    <task id="LOCAL-00001" summary="创建数据库，编写数据库脚本，开发公共模块：定义了通用常量类、分页DTO、封装了服务器返回结果类">
+      <option name="closed" value="true" />
+      <created>1769141053322</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1769141053322</updated>
+    </task>
+    <task id="LOCAL-00002" summary="定义异常类和基于AOP的全局异常处理；封装了基于AOP的业务方法参数非空校验；封装了几个配置类；CORS和缓存；封装了3个工具类；Excel操作、Minio、jwt">
+      <option name="closed" value="true" />
+      <created>1769156024822</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1769156024822</updated>
+    </task>
+    <task id="LOCAL-00003" summary="添加了主配文件：application.yml, 新增了房间管理模块（RoomMapper、RoomService、RoomController、DTO类），SpringDoc配置类">
+      <option name="closed" value="true" />
+      <created>1769243836322</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1769243836322</updated>
+    </task>
+    <task id="LOCAL-00004" summary="添加了主配文件：application.yml, 新增了房间管理模块（RoomMapper、RoomService、RoomController、DTO类），SpringDoc配置类">
+      <option name="closed" value="true" />
+      <created>1769243925188</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1769243925188</updated>
+    </task>
+    <task id="LOCAL-00005" summary="新增了学校模块">
+      <option name="closed" value="true" />
+      <created>1769398626727</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1769398626727</updated>
+    </task>
+    <task id="LOCAL-00006" summary="完成了房件、院校和资产管理模块">
+      <option name="closed" value="true" />
+      <created>1769504734828</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1769504734828</updated>
+    </task>
+    <task id="LOCAL-00007" summary="资产管理模块新增了添加资产、修改资产和资产图片上传功能">
+      <option name="closed" value="true" />
+      <created>1769580757169</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1769580757169</updated>
+    </task>
+    <task id="LOCAL-00008" summary="资源管理模块下的资产申请功能">
+      <option name="closed" value="true" />
+      <created>1769760832587</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1769760832588</updated>
+    </task>
+    <task id="LOCAL-00009" summary="用户管理模块下的服务功能">
+      <option name="closed" value="true" />
+      <created>1769829438176</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1769829438176</updated>
+    </task>
+    <task id="LOCAL-00010" summary="用户管理服务下的员工模块，角色模块，菜单模块">
+      <option name="closed" value="true" />
+      <created>1769936249489</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1769936249489</updated>
+    </task>
+    <task id="LOCAL-00011" summary="新增了登录功能，令牌拦截器及其配置类">
+      <option name="closed" value="true" />
+      <created>1770091319426</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1770091319426</updated>
+    </task>
+    <task id="LOCAL-00012" summary="新增了项目首页，修改了路由导航，查看个人信息，修改个人信息，退出系统">
+      <option name="closed" value="true" />
+      <created>1770187590669</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1770187590669</updated>
+    </task>
+    <task id="LOCAL-00013" summary="新增了项目首页，修改了路由导航，查看个人信息，修改个人信息，退出系统">
+      <option name="closed" value="true" />
+      <created>1770426719802</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1770426719802</updated>
+    </task>
+    <task id="LOCAL-00014" summary="新增了添加和修改教学进度，给用户分配角色">
+      <option name="closed" value="true" />
+      <created>1770599699676</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1770599699676</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="创建数据库，编写数据库脚本，开发公共模块：定义了通用常量类、分页DTO、封装了服务器返回结果类" />
+    <MESSAGE value="定义异常类和基于AOP的全局异常处理；封装了基于AOP的业务方法参数非空校验；封装了几个配置类；CORS和缓存；封装了3个工具类；Excel操作、Minio、jwt" />
+    <MESSAGE value="添加了主配文件：application.yml, 新增了房间管理模块（RoomMapper、RoomService、RoomController、DTO类），SpringDoc配置类" />
+    <MESSAGE value="新增了学校模块" />
+    <MESSAGE value="完成了房件、院校和资产管理模块" />
+    <MESSAGE value="资产管理模块新增了添加资产、修改资产和资产图片上传功能" />
+    <MESSAGE value="资源管理模块下的资产申请功能" />
+    <MESSAGE value="用户管理模块下的服务功能" />
+    <MESSAGE value="用户管理服务下的员工模块，角色模块，菜单模块" />
+    <MESSAGE value="新增了登录功能，令牌拦截器及其配置类" />
+    <MESSAGE value="新增了项目首页，修改了路由导航，查看个人信息，修改个人信息，退出系统" />
+    <MESSAGE value="新增了添加和修改教学进度，给用户分配角色" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增了添加和修改教学进度，给用户分配角色" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mc-manager/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mc-monitor/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mc-web/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

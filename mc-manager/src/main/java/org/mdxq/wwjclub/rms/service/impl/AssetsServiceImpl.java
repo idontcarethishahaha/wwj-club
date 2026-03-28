@@ -5,10 +5,12 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.*;
 import jakarta.annotation.Resource;
 import org.mdxq.wwjclub.constant.MC;
+import org.mdxq.wwjclub.dto.PageDTO;
 import org.mdxq.wwjclub.entity.Assets;
 import org.mdxq.wwjclub.exception.*;
 import org.mdxq.wwjclub.rms.dao.AssetsMapper;
 import org.mdxq.wwjclub.rms.dto.*;
+import org.mdxq.wwjclub.rms.excel.AssetsExcel;
 import org.mdxq.wwjclub.rms.service.AssetsService;
 import org.mdxq.wwjclub.util.MinioUtil;
 import org.springframework.cache.annotation.*;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 类说明：资产接口实现类
@@ -131,4 +134,11 @@ public class AssetsServiceImpl implements AssetsService {
         return newFilename;//如果所有操作都成功，返回新的文件名
     }
 
+    @Override
+    public List<AssetsExcel> getExcelData() {
+        return assetsMapper.list(new AssetsPageDTO())
+                .stream()
+                .map(assets -> BeanUtil.copyProperties(assets,AssetsExcel.class))
+                .collect(Collectors.toList());
+    }
 }

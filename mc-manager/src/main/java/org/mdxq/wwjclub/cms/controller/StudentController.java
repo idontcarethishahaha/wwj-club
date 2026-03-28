@@ -3,11 +3,13 @@ package org.mdxq.wwjclub.cms.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.mdxq.wwjclub.cms.dto.StudentInsertDTO;
 import org.mdxq.wwjclub.cms.dto.StudentPageDTO;
 import org.mdxq.wwjclub.cms.dto.StudentUpdateDTO;
 import org.mdxq.wwjclub.cms.service.StudentService;
 import org.mdxq.wwjclub.result.Result;
+import org.mdxq.wwjclub.util.ExcelUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,5 +70,11 @@ public class StudentController {
     @PostMapping("uploadAvatar/{id}")
     public Result uploadAvatar(@RequestParam("avatarFile") MultipartFile avatarFile, @PathVariable("id") Long id) {
         return new Result(studentService.uploadAvatar(avatarFile, id));
+    }
+
+    @Operation(summary = "查询 - 导出数据表")
+    @GetMapping("/excel")
+    public void excel(HttpServletResponse response) {
+        ExcelUtil.download(response,"学生统计表",studentService.getExcelData());
     }
 }

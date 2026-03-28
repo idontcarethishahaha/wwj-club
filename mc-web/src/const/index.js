@@ -27,7 +27,7 @@ export const PROJECT_INFO = {
     title: '《WWJ-CLUB》后台管理子系统',
     author: 'WuWenJin',
     version: 'v1.0.0',
-    manageHost: `http://${DEV_HOST}:23101`,
+    manageHost: `http://${PROD_HOST}:23101`,
     monitorHost: `http://${DEV_HOST}:23102`,
     webHost: `http://${DEV_HOST}:23103`,
     docHost: `http://${DEV_HOST}:23101/doc.html`,
