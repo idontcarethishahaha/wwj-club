@@ -1,38 +1,100 @@
-# wwj-club
+# wwj-club 学习型俱乐部综合管理系统
+一款面向学习型俱乐部的内部综合管理系统，聚焦俱乐部全维度运营管理需求，仅对内部员工开放使用，提供资产、人员、教学全流程数字化管理能力，旨在提升俱乐部运营效率、规范管理流程。
 
-#### 介绍
-wwj-club是基于SpringBoot开发的学生信息管理平台，可以管理和追踪学生的进度和状态；
-主要包含3个业务模块：资源管理、班级和课程管理、用户管理
+## 一、项目概述
+### 核心定位
+为学习型俱乐部打造的一站式管理平台，覆盖**资产、人员、教学**三大核心场景，支持内部员工统一管理俱乐部场地、学校、资产、部门、员工、角色、菜单、班级、课程、学员等全维度数据。
 
-#### 软件架构
-软件架构说明
+### 核心模块
+| 模块名称          | 英文标识 | 核心功能                                                                 |
+|-------------------|----------|--------------------------------------------------------------------------|
+| 资源管理模块      | RMS      | 统一管理俱乐部场地、学校信息与固定资产，实现资产借用、审批、归还全流程闭环管理 |
+| 用户管理模块      | UMS      | 基于RBAC模型管理部门/员工信息，实现角色定义、菜单权限配置、员工权限精细化分配 |
+| 班级管理模块      | CMS      | 覆盖课程方向-班级-课程全链路配置，跟踪教学进度，管理学员学籍与学习状态       |
 
+## 二、数据结构设计
+系统核心包含15张数据表，按三大模块分层设计，覆盖业务全流程数据存储：
 
-#### 安装教程
+### 1. 资源管理模块（RMS）- 4张表
+| 表名             | 核心字段                                                                 | 存储数据说明                     |
+|------------------|--------------------------------------------------------------------------|----------------------------------|
+| rms_room         | id、room_name、school_id、status、create_time、update_time                | 俱乐部房间信息（归属学校、状态等）|
+| rms_school       | id、school_name、address、contact、create_time、update_time               | 合作学校基础信息                 |
+| rms_assets       | id、assets_name、type、school_id、room_id、status、create_time            | 固定资产信息（类型、归属、状态） |
+| rms_assets_borrow| id、assets_id、emp_id、borrow_time、return_time、status、approve_emp_id    | 资产借用申请/审批/归还记录       |
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 2. 用户管理模块（UMS）- 6张表
+| 表名             | 核心字段                                                                 | 存储数据说明                     |
+|------------------|--------------------------------------------------------------------------|----------------------------------|
+| ums_dept         | id、dept_name、parent_id、sort、status                                   | 俱乐部部门层级信息               |
+| ums_emp          | id、emp_name、dept_id、phone、password、status、create_time               | 员工基础信息（归属部门、账号等） |
+| ums_role         | id、role_name、description、status                                       | 角色定义（如管理员、资产管理员） |
+| ums_menu         | id、menu_name、path、permission、parent_id、sort                         | 系统菜单/接口权限配置            |
+| ums_emp_role     | id、emp_id、role_id                                                      | 员工-角色关联关系（多对多）      |
+| ums_role_menu    | id、role_id、menu_id                                                     | 角色-菜单权限关联关系（多对多）  |
 
-#### 使用说明
+### 3. 班级管理模块（CMS）- 5张表
+| 表名                | 核心字段                                                                 | 存储数据说明                     |
+|---------------------|--------------------------------------------------------------------------|----------------------------------|
+| cms_direction       | id、direction_name、description、status                                   | 课程方向（如Java、Python）|
+| cms_club            | id、club_name、direction_id、emp_id（班主任）、start_time、status         | 班级信息（归属方向、班主任等）|
+| cms_course          | id、course_name、direction_id、emp_id（讲师）、duration、sort             | 课程信息（归属方向、讲师等）|
+| cms_club_progress   | id、club_id、course_id、progress、update_time                             | 班级课程进度跟踪                 |
+| cms_student         | id、student_name、club_id、phone、status、enroll_time                     | 学员信息（归属班级、报名状态）|
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 三、技术架构与选型
+采用**前后端分离**架构，兼顾性能、可维护性与企业级开发规范：
 
-#### 参与贡献
+### 1. 服务端技术
+- 核心框架：SpringBoot + SSM（Spring + SpringMVC + MyBatis）
+- 持久层：MyBatis + PageHelper（分页）
+- 安全认证：JJWT（令牌生成） + Spring AOP（接口权限校验）
+- 效率工具：Hutool（通用工具）、Lombok（简化代码）
+- 文件/数据处理：MinIO（分布式文件存储）、EasyExcel（大数据报表导出）
+- 服务监控：SpringBoot Admin
+- 性能优化：Redis（热点数据缓存）、ElasticSearch（全文检索）
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+### 2. 客户端技术
+- 核心框架：Vue + ElementPlus（UI组件库）
+- 接口交互：Axios（请求封装/拦截）
+- 可视化：ECharts（数据图表展示）
+- 样式管理：Sass（样式统一）
+- 权限控制：RBAC模型（前端菜单/按钮级权限）
 
+### 3. 数据库与中间件
+- 主数据库：MySQL（核心业务数据），针对高频查询字段/外键建立索引
+- 缓存：Redis（热点数据缓存，提升查询性能）
+- 检索：ElasticSearch（全文检索，优化课程/资产搜索体验）
+- 反向代理：Nginx（跨域处理、请求转发）
 
-#### 特技
+## 四、项目核心亮点
+### 1. 通用能力标准化
+- 异常体系：区分三类业务异常，统一封装Result返回对象，全局异常兜底处理
+- 通用拦截：AOP实现参数校验、方法日志记录；Token拦截器+ThreadLocal存储用户信息，消除重复代码
+- 配置规范：核心配置文件化，支持多环境快速切换
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+### 2. 高性能与稳定性
+- 文件存储：MinIO实现分布式文件存储及完整性校验，适配海量文件场景
+- 数据导出：EasyExcel分片写入机制，避免大数据量Excel导出OOM问题
+- 认证优化：JWT令牌支持无感刷新，保障登录态连续性与安全性
+
+### 3. 精细化权限管控
+- 基于RBAC模型设计，实现角色-菜单-员工的多层级权限关联
+- 权限校验与业务逻辑解耦，无需硬编码，支持细粒度权限配置（菜单/按钮/接口）
+
+### 4. 工程化与可维护性
+- 封装通用工具类（文件、加密、日期等），提升开发效率
+- 代码分层清晰（Controller→Service→Mapper→Entity），符合企业级开发规范
+
+## 五、核心技术难点与解决方案
+| 技术难点                  | 解决方案                                                                 |
+|---------------------------|--------------------------------------------------------------------------|
+| JWT令牌即将过期自动刷新   | 解析Token有效期，在即将过期时自动生成新Token并返回，保障用户体验           |
+| Excel大数据导出OOM        | 基于EasyExcel分片写入机制，分批读取/写入数据，避免内存溢出                 |
+| MinIO文件操作异常排查     | 前置参数校验（文件格式/大小）+ 自定义异常转换，快速定位上传/下载问题       |
+
+## 六、项目开发背景
+本项目为假期自主练习项目，核心目标：
+1. 技术落地：将SpringBoot、Vue、RBAC、分布式存储等技术整合到实际业务场景；
+2. 规范实践：理解企业级项目的分层设计、数据结构、权限管控等开发规范；
+3. 能力提升：解决实际业务中的性能、安全、可维护性问题，积累全栈开发经验。
